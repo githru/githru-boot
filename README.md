@@ -6,12 +6,14 @@ Tutorial의 목적은 아래와 같습니다.
 - 코드리뷰에 익숙해지기
 - Githru 맛보기
 
-폴더 구조
+폴더 구조: [과제]/[id]
 ```
-- analysis-engine
+- crawler
  - [id]
-  - project1/...
-- view
+- icicle
  - [id]
-  - project1/...
+- linechart
+ - [id]
+- parser
+ - [id]
 ```
