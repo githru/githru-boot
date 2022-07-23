@@ -1,0 +1,11 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "ignorePatterns": ["node_modules/"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": { "@typescript-eslint/explicit-module-boundary-types": "off" }
+}
