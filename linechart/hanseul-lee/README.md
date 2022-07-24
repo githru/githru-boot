@@ -1,1 +1,1 @@
-# [githru-tutorial] linechart(view) 이한슬
+[githru-tutorial] linechart(view) 이한슬
