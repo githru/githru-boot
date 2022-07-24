@@ -1,9 +1,19 @@
 import './style.css';
 import * as d3 from 'd3';
 import { TFileData } from './types';
+import { HierarchyRectangularNode } from 'd3';
 
 const WIDTH = 600;
 const HEIGHT = 400;
+const FONT_SIZE = 12;
+const COLOR_CODE = {
+  dir: '#ffcc80',
+  file: '#ffe082'
+}
+
+const getIsVisibleLabel = (d: HierarchyRectangularNode<TFileData>) => {
+  return (d.x1 - d.x0) > 16;
+}
 
 const getData = async (): Promise<TFileData> => {
   const response = await fetch('/data.json');
@@ -32,7 +42,8 @@ const drawIcicleTree = async (data: TFileData) => {
   // icicle tree 생성 
   // https://github.com/d3/d3-hierarchy/blob/v3.1.2/README.md#partition
   const partition = d3.partition<TFileData>()
-    .size([HEIGHT, WIDTH])(hierachy);
+    .size([HEIGHT, WIDTH])
+    .padding(1)(hierachy);
 
   // 파티션 위치 설정
   const cell = $container.selectAll('g')
@@ -43,7 +54,16 @@ const drawIcicleTree = async (data: TFileData) => {
   // 파티션 각 영역 그리기
   cell.append('rect')
     .attr('width', d => d.y1 - d.y0)
-    .attr('height', d => d.x1 - d.x0);
+    .attr('height', d => d.x1 - d.x0)
+    // 원본데이터에 value가 없는 경우 디렉토리로 판단
+    .style('fill', d => COLOR_CODE[d.data.value !== undefined ? 'file' : 'dir']);
+
+  cell.append('text')
+    .attr('x', 4)
+    .attr('y', d => Math.min(13, (d.x1 - d.x0) / 2))
+    .style('font-size', FONT_SIZE)
+    .attr('fill-opacity', d => getIsVisibleLabel(d) ? 1 : 0)
+    .text(d => `${d.data.name}/ ${d.value}`);
 }
 
 const main = async () => {
