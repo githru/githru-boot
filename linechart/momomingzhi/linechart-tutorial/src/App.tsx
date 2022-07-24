@@ -26,9 +26,7 @@ function App() {
                 .domain(
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
-                    d3.extent(data, d => {
-                        return d.date;
-                    }),
+                    d3.extent(data, d => d.date),
                 )
                 .range([0, width]);
             const y = d3
