@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      Landing Page
+      여기에 D3로 그래프를 그릴 거예요
     </div>
   )
 }
