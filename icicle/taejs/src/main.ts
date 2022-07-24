@@ -6,6 +6,8 @@ import { HierarchyRectangularNode } from 'd3';
 const WIDTH = 600;
 const HEIGHT = 400;
 const FONT_SIZE = 12;
+const MAX_DEPTH = 4;
+const SINGLE_RECT_WIDTH = WIDTH / MAX_DEPTH;
 const COLOR_CODE = {
   dir: '#ffcc80',
   file: '#ffe082'
@@ -42,14 +44,14 @@ const drawIcicleTree = async (data: TFileData) => {
   // icicle tree 생성 
   // https://github.com/d3/d3-hierarchy/blob/v3.1.2/README.md#partition
   const partition = d3.partition<TFileData>()
-    .size([HEIGHT, WIDTH])
+    .size([HEIGHT, (hierachy.height + 1) * SINGLE_RECT_WIDTH])
     .padding(1)(hierachy);
 
   // 파티션 위치 설정
   const cell = $container.selectAll('g')
     .data(partition.descendants())
     .join('g')
-      .attr('transform', d => `translate(${d.y0},${d.x0})`);
+      .attr('transform', d => `translate(${d.y0 - SINGLE_RECT_WIDTH},${d.x0})`);
 
   // 파티션 각 영역 그리기
   cell.append('rect')
