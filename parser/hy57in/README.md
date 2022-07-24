@@ -19,29 +19,29 @@ githru에서 보여지는 필요정보들 (파일 별 수정/삭제된 라인 �
 - install
 
 ```
-npm install
+yarn install
 ```
 
 - Start
 
 ```
-npm run start
+yarn start
 ```
 
 - Build
 
 ```
-npm run build
+yarn build
 ```
 
 - Eslint
 
 ```
-npm run lint
+yarn lint
 ```
 
 - Test
 
 ```
-npm run test
+yarn test
 ```
