@@ -1,4 +1,4 @@
-import { hierarchy, partition, select } from "d3";
+import { hierarchy, partition, select, selectAll } from "d3";
 import { useEffect, useMemo, useRef } from "react";
 import Data from "types/Data";
 
@@ -32,14 +32,20 @@ const IcicleChart = (props: Props) => {
       .join("g")
       .attr("class", "icicleTreeCells")
       .attr("transform", (d) => `translate(${d.y0 / root.height - blockWidth},${d.x0})`)
-      .attr("id", (d) => d.x0);
+      .attr("id", (d) => d.x0)
+      .on("click", (e) => {
+        select(e.currentTarget).transition().duration(500).attr("transform", "translate(0, 0)");
+      });
     cell
       .append("rect")
       .attr("width", (d) => (d.y1 - d.y0 - 5) / root.height)
       .attr("height", (d) => d.x1 - d.x0 - 2)
       .attr("class", "icicleTreeRects")
       .style("fill", (d) => (d.children ? "#36393f" : "#575a5f"))
-      .style("cursor", "pointer");
+      .style("cursor", "pointer")
+      .on("click", (e) => {
+        select(e.currentTarget).transition().duration(500).attr("height", height);
+      });
     cell
       .append("text")
       .attr("class", "icicleTreeTexts")
