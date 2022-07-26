@@ -23,5 +23,6 @@ module.exports = {
     rules: {
         'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
         'import/extensions': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off', // 임시 적용
     },
 };
