@@ -121,10 +121,14 @@ const ChartArea = ({
 }: ChartAreaPropsType) => {
   if (!lineGenerator) return null;
 
-  const dataArray = Array.from({ length: tempArray.length }, (_, i) => ({
-    temp: tempArray[i],
-    date: dateArray[i],
-  }));
+  const dataArray = useMemo(
+    () =>
+      Array.from({ length: tempArray.length }, (_, i) => ({
+        temp: tempArray[i],
+        date: dateArray[i],
+      })),
+    [tempArray, dateArray]
+  );
 
   return (
     <g>
