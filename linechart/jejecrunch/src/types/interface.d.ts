@@ -13,6 +13,8 @@ export interface InputData {
 export interface LineChartData {
     d: string;
     v: number;
+    y2?: number;
+    y3?: number;
 }
 
 export interface Iterable<T> {
