@@ -18,7 +18,7 @@ const LineChart = (props: LineChartProps) => {
         const margin = { top: 10, right: 30, bottom: 30, left: 60 };
         setGraphHeight(props.height);
 
-        const width = 460 - margin.left - margin.right;
+        const width = 600;
         const height = graphHeight - margin.top - margin.bottom;
 
         // graph
@@ -83,7 +83,7 @@ const LineChart = (props: LineChartProps) => {
                 .append("path")
                 .datum(data)
                 .attr("fill", "none")
-                .attr("stroke", "steelblue")
+                .attr("stroke", "#a3a345")
                 .attr("stroke-width", 1.5)
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
@@ -95,7 +95,7 @@ const LineChart = (props: LineChartProps) => {
 
     return (
         <>
-            <h2> Line Chart </h2>
+            <h3> Line Chart #1</h3>
             <div
                 ref={divRef}
                 style={{
