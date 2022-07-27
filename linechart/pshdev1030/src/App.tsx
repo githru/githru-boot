@@ -12,7 +12,10 @@ function App() {
         align-items: center;
       `}
     >
-      <LineChart datas={datas} />
+      <LineChart
+        datas={datas}
+        margin={{ top: 100, bottom: 100, left: 100, right: 100 }}
+      />
     </div>
   );
 }

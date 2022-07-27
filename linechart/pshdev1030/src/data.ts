@@ -1,7 +1,9 @@
 // 20220725182259
 // https://api.openweathermap.org/data/2.5/forecast?lat=37.5442162&lon=127.070185&cnt=16&appid=96d1e7975c7e926e234774358a9f359d
 
-export const data = [
+import { DataTypes } from "./types/datas";
+
+export const datas: DataTypes[] = [
   {
     main: {
       temp: 302.22,
