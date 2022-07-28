@@ -22,28 +22,32 @@ const IcicleChart = (props: Props) => {
     () => partition().size([height, (root.height + 1) * width])(root),
     [root, width, height]
   );
-  const handleClickRect = useCallback((event: any, target: HierarchyRectangularNode<unknown>) => {
-    const { x0, x1, y0, y1 } = target;
+  const handleClickRect = useCallback(
+    (event: any, target: HierarchyRectangularNode<unknown>) => {
+      const { x0, x1, y0, y1 } = target;
 
-    part.each((d) => {
-      d.x0 = d.x0 - x0;
-      d.x1 = d.x1 - x0 + height;
-      d.y0 = d.y0 - y0;
-      d.y1 = d.y1 - y1;
-    });
-
-    selectAll(".icicleTreeCells")
-      .transition()
-      .duration(500)
-      .attr("transform", (d: any) => {
-        return `translate(${d.y0 * (1 / (target.height + 1))},${d.x0})`;
+      part.each((d) => {
+        d.x0 = (d.x0 - x0) * (height / (x1 - x0));
+        d.x1 = (d.x1 - x0) * (height / (x1 - x0));
+        d.y0 = d.y0 - y0;
+        d.y1 = d.y1 - y1;
       });
 
-    selectAll(".icicleTreeRects")
-      .transition()
-      .duration(500)
-      .attr("width", (d) => width / (target.height + 1) - 1.5);
-  }, []);
+      selectAll(".icicleTreeCells")
+        .transition()
+        .duration(500)
+        .attr("transform", (d: any) => {
+          return `translate(${d.y0 * (1 / (target.height + 1))},${d.x0})`;
+        });
+
+      selectAll(".icicleTreeRects")
+        .transition()
+        .duration(500)
+        .attr("width", (d) => width / (target.height + 1) - 1.5)
+        .attr("height", (d: any) => d.x1 - d.x0 - 1.5);
+    },
+    [data]
+  );
 
   useEffect(() => {
     const svg = select(svgRef.current);
