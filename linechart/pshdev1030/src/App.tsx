@@ -6,7 +6,8 @@ function App() {
   return (
     <div
       css={css`
-        height: 100%;
+        width: 1300px;
+        height: 800px;
         display: flex;
         justify-content: center;
         align-items: center;

@@ -76,8 +76,9 @@ export const LineChart = ({
   return (
     <div
       css={css`
-        width: 1300px;
-        height: 800px;
+        width: 100%;
+        height: 100%;
+        margin: auto;
         box-sizing: border-box;
         & > svg {
           display: block;
