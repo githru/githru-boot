@@ -1,5 +1,5 @@
-import { hierarchy, partition, select, selectAll } from "d3";
-import { useEffect, useMemo, useRef } from "react";
+import { hierarchy, HierarchyRectangularNode, partition, select, selectAll } from "d3";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import Data from "types/Data";
 
 interface Props {
@@ -22,6 +22,28 @@ const IcicleChart = (props: Props) => {
     () => partition().size([height, (root.height + 1) * width])(root),
     [root, width, height]
   );
+  const handleClickRect = useCallback((event: any, target: HierarchyRectangularNode<unknown>) => {
+    const { x0, x1, y0, y1 } = target;
+
+    part.each((d) => {
+      d.x0 = d.x0 - x0;
+      d.x1 = d.x1 - x0 + height;
+      d.y0 = d.y0 - y0;
+      d.y1 = d.y1 - y1;
+    });
+
+    selectAll(".icicleTreeCells")
+      .transition()
+      .duration(500)
+      .attr("transform", (d: any) => {
+        return `translate(${d.y0 * (1 / (target.height + 1))},${d.x0})`;
+      });
+
+    selectAll(".icicleTreeRects")
+      .transition()
+      .duration(500)
+      .attr("width", (d) => width / (target.height + 1) - 1.5);
+  }, []);
 
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -33,19 +55,14 @@ const IcicleChart = (props: Props) => {
       .attr("class", "icicleTreeCells")
       .attr("transform", (d) => `translate(${d.y0 / root.height - blockWidth},${d.x0})`)
       .attr("id", (d) => d.x0)
-      .on("click", (e) => {
-        select(e.currentTarget).transition().duration(500).attr("transform", "translate(0, 0)");
-      });
+      .on("click", handleClickRect);
     cell
       .append("rect")
       .attr("width", (d) => (d.y1 - d.y0 - 5) / root.height)
       .attr("height", (d) => d.x1 - d.x0 - 2)
       .attr("class", "icicleTreeRects")
       .style("fill", (d) => (d.children ? "#36393f" : "#575a5f"))
-      .style("cursor", "pointer")
-      .on("click", (e) => {
-        select(e.currentTarget).transition().duration(500).attr("height", height);
-      });
+      .style("cursor", "pointer");
     cell
       .append("text")
       .attr("class", "icicleTreeTexts")
@@ -61,7 +78,7 @@ const IcicleChart = (props: Props) => {
       });
   }, [width, height, data]);
 
-  return <svg width={props.width} height={props.height} ref={svgRef} />;
+  return <svg width={width} height={height} ref={svgRef} />;
 };
 
 export default IcicleChart;
