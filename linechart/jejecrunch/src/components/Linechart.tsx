@@ -1,13 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { LineChartData } from '../types/interface';
+import { Props } from '../types/interface';
+import changeVal from '../util/changeVal';
 
-interface LineChartProps {
-	height: number;
-	values: LineChartData[];
-}
-
-function LineChart(props: LineChartProps) {
+function LineChart({ _height, values }: Props) {
 	const divRef = useRef<HTMLDivElement>(null);
 	const [graphHeight, setGraphHeight] = useState(0);
 
@@ -16,7 +12,7 @@ function LineChart(props: LineChartProps) {
 
 		// dimensions
 		const margin = { top: 10, right: 30, bottom: 30, left: 60 };
-		setGraphHeight(props.height);
+		setGraphHeight(_height);
 
 		const width = 600;
 		const height = graphHeight - margin.top - margin.bottom;
@@ -34,33 +30,40 @@ function LineChart(props: LineChartProps) {
 				.attr('transform', `translate(${margin.left},${margin.top})`);
 
 			// read and set data
-			const parseDate: any = d3.timeParse('%Y-%m-%d');
+			const parseDate = d3.timeParse('%Y-%m-%d');
 
-			const data = props.values.map(({ d, v }) => ({
+			const data: { date: Date | null; value: number }[] = values.map(({ d, v }) => ({
 				date: parseDate(d),
 				value: v,
 			}));
 
-			// setting axios
-			const d3Type: Function = d3
-				.line()
-				.x((value: any) => x(value.date))
-				.y((value: any) => y(value.value));
 			// x
-			const xDomain = d3.extent(data, (d) => d.date) as unknown as [number, number];
+			const xDomain = d3.extent(
+				data || [
+					{ date: null, value: 0 },
+					{ date: null, value: 0 },
+				],
+				(d) => d.date
+			) as unknown as [number, number];
 			const x = d3
 				.scaleUtc()
 				.domain(xDomain)
 				.range([margin.left, width - margin.right]);
 			// y
-			const yMax = d3.max(data, (d) => d.value) as unknown as number;
+			const yMax = d3.max(
+				data || [
+					{ date: null, value: 0 },
+					{ date: null, value: 0 },
+				],
+				(d) => d.value
+			) as unknown as number;
 			const y = d3
 				.scaleLinear()
 				.domain([0, yMax])
 				.nice()
 				.range([height - margin.bottom, margin.top]);
 
-			const xAxis = (g: any) =>
+			const xAxis = (g: d3.Selection<SVGGElement, unknown, null, undefined>) =>
 				g.attr('transform', `translate(0,${height - margin.bottom})`).call(
 					d3
 						.axisBottom(x)
@@ -70,13 +73,19 @@ function LineChart(props: LineChartProps) {
 
 			documentElement.append<SVGGElement>('g').call(xAxis);
 
-			const yAxis: any = (g: any) => g.attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(y));
+			const yAxis = (g: d3.Selection<SVGGElement, unknown, null, undefined>) =>
+				g.attr('transform', `translate(${margin.left},0)`).call(d3.axisLeft(y));
 
 			documentElement
 				.append<SVGGElement>('g')
 				.call(yAxis)
 				.call((g) => g.select('.domain').remove());
 
+			// setting axios
+			const d3Type = d3
+				.line()
+				.x((value) => x(value[0]))
+				.y((value) => y(value[1]));
 			// draw line
 			documentElement
 				.append('path')
@@ -86,11 +95,11 @@ function LineChart(props: LineChartProps) {
 				.attr('stroke-width', 1.5)
 				.attr('stroke-linejoin', 'round')
 				.attr('stroke-linecap', 'round')
-				.attr('d', (data) => d3Type(data));
+				.attr('d', d3Type(changeVal(data)));
 		};
 
 		createGraph();
-	}, [props.values, graphHeight, props]);
+	}, [values, graphHeight, _height]);
 
 	return (
 		<>
