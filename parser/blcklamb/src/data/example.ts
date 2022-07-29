@@ -44,11 +44,11 @@ Date:   Thu Jul 28 11:03:27 2022 -0700
 export const exampleResult01 = [
   {
     commit: "e5add6659d39568c23319508aaf2efe17ca65295",
-    Author: "Kohei Uen",
+    Author: "Kohei Ueno",
     Email: "kohei.ueno119@gmail.com",
     Date: "Fri Jul 29 14:47:56 2022 +0900",
     message: "src: fix to use replacement character",
-    "PR-URL": "https://github.com/nodejs/node/pull/43999",
+    prURL: "https://github.com/nodejs/node/pull/43999",
 
     reviewer: [
       "Antoine du Hamel",
@@ -64,7 +64,7 @@ export const exampleResult01 = [
     Email: "tniessen@tnie.de",
     Date: "Fri Jul 29 00:00:40 2022 +0200",
     message: "src: improve SPKAC::ExportChallenge()",
-    "PR-URL": "https://github.com/nodejs/node/pull/44002",
+    prURL: "https://github.com/nodejs/node/pull/44002",
 
     reviewer: ["Darshan Sen", "Luigi Pinca", "Anna Henningsen"],
   },
@@ -74,7 +74,7 @@ export const exampleResult01 = [
     Email: "ops+robot@npmjs.com",
     Date: "Thu Jul 28 11:03:27 2022 -0700",
     message: "deps: upgrade npm to 8.15.1",
-    "PR-URL": "https://github.com/nodejs/node/pull/44013",
+    prURL: "https://github.com/nodejs/node/pull/44013",
 
     reviewer: [
       "Mohammed Keyvanzadeh",
