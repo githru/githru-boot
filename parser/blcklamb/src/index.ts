@@ -1,2 +1,2 @@
-import gitLogToJSONParser from "./gitLogToJSONParser";
+import { gitLogToJSONParser } from "./gitLogToJSONParser";
 gitLogToJSONParser();
