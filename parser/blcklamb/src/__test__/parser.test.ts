@@ -17,7 +17,9 @@ describe("parser function", () => {
 
 describe("example parser01", () => {
   test("parser01", () => {
-    expect(parse01(exampleLog01)).toBe(exampleResult01);
+    // If it should pass with deep equality, replace "toBe" with "toStrictEqual"
+    // serializes to the same string
+    expect(parse01(exampleLog01)).toStrictEqual(exampleResult01);
   });
 });
 export {};
