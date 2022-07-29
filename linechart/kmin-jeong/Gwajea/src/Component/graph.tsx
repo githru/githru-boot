@@ -17,7 +17,7 @@ const D3 = () => {
       .attr("width", width)
       .attr("height", height);
 
-    // data
+    // 데이터
     const data = [
       { month: "january", value: 40 },
       { month: "February", value: 10 },
