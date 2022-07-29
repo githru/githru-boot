@@ -3,6 +3,11 @@ import type * as Parser from "../gitLogToJSONParser";
 const { gitLogToJSONParser } = jest.requireActual<typeof Parser>(
   "../gitLogToJSONParser"
 );
+const { parse01 } = jest.requireActual<typeof Parser>("../gitLogToJSONParser");
+
+import type * as Data from "../data/example";
+const { exampleLog01, exampleResult01 } =
+  jest.requireActual<typeof Data>("../data/example");
 
 describe("parser function", () => {
   test("temporary parser function", () => {
@@ -10,4 +15,9 @@ describe("parser function", () => {
   });
 });
 
+describe("example parser01", () => {
+  test("parser01", () => {
+    expect(parse01(exampleLog01)).toBe(exampleResult01);
+  });
+});
 export {};
