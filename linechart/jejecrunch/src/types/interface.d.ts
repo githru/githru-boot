@@ -1,5 +1,7 @@
+export type Ty = 'ts_file' | 'csv_file' | 'csv_url' | 'json_url' | 'json_file';
+
 export interface Type {
-	type: 'ts_file' | 'csv_file' | 'csv_url' | 'json_url' | 'json_file';
+	type: Ty;
 }
 
 export interface InputData {
