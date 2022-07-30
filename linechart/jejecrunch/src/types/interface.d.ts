@@ -1,26 +1,31 @@
-export interface Data {
-	x: number;
-	y1: number;
-	y2: number;
-	y3: number;
+export interface Type {
+	type: 'ts_file' | 'csv_file' | 'csv_url' | 'json_url' | 'json_file';
 }
 
 export interface InputData {
-	date: string | null;
-	value: string;
+	date: Date | string | '' | null | undefined;
+	value: string | number;
 }
 
-export interface Props extends HeightProps {
-	values: LineChartData[];
+export interface Data {
+	data: InputData[];
 }
 
-export interface HeightProps {
+export interface Props extends Type, Data {
 	_height: number;
+	color: string;
+	number?: number;
 }
 
-export interface LineChartData {
-	d: string;
-	v: number;
-	y2?: number;
-	y3?: number;
+export interface Id {
+	number: number;
+}
+
+export interface URLProps {
+	url: string;
+}
+
+export interface DataProps extends Type {
+	url?: string;
+	values?: InputData[] | Data[];
 }

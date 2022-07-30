@@ -1,9 +1,19 @@
+import { InputData, Type } from '../types/interface';
+
 const init: [number, number][] = [];
 
-export default function changeVal(d: { date: Date | null; value: number }[]) {
-	const result = d?.reduce((prev, cur: { date: Date | null; value: number }) => {
-		if (cur.date) prev.push([cur.date?.getTime(), cur.value]);
-		else prev.push([new Date().getTime(), cur.value]);
+export default function changeVal(d: InputData[], { type }: Type) {
+	const result = d?.reduce((prev, cur: InputData) => {
+		if (type === 'ts_file') {
+			prev.push([Number(cur.date), Number(cur.value)]);
+		} else if (type === 'csv_url') {
+			let chd = 0;
+			if (cur.date) {
+				if (typeof cur.date !== 'string') chd = cur.date.getTime();
+				else chd = Number(cur.date);
+			}
+			prev.push([chd, Number(cur.value)]);
+		}
 		return prev;
 	}, init);
 
