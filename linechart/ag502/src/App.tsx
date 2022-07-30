@@ -8,8 +8,12 @@ import AppleStockCSV from './assets/data/appleStock.csv';
 
 function App() {
     const [appleStockData, setAppleStockData] = useState<AppleStockDataType>([]);
+    const [numOfRows, setNumOfRows] = useState<number[]>([]);
     const [xValues, setXValues] = useState<Date[]>([]);
     const [yValues, setYValues] = useState<number[]>([]);
+    const [defined, setDefined] = useState<boolean[]>([]);
+    const [xDomain, setXDomain] = useState<Date[]>([]);
+    const [yDomain, setYDomain] = useState<number[]>([]);
 
     const fetchAppleStockData = useCallback(async () => {
         try {
@@ -33,8 +37,21 @@ function App() {
     useEffect(() => {
         if (appleStockData.columns) {
             const [xAxis, yAxis] = appleStockData.columns;
-            setXValues(d3.map(appleStockData, (x) => x[xAxis] as Date));
-            setYValues(d3.map(appleStockData, (y) => y[yAxis] as number));
+
+            const curXValues = d3.map(appleStockData, (x) => x[xAxis] as Date);
+            const curYValues = d3.map(appleStockData, (y) => y[yAxis] as number);
+            const curNumOfRows = d3.range(curXValues.length);
+            const curDefined = d3.map(
+                appleStockData,
+                (_, i) => !Number.isNaN(curXValues[i]) && !Number.isNaN(curYValues[i]),
+            );
+
+            setXValues(curXValues);
+            setYValues(curYValues);
+            setNumOfRows(curNumOfRows);
+            setDefined(curDefined);
+            setXDomain(d3.extent(curXValues) as Date[]);
+            setYDomain([0, d3.max(curYValues) as number]);
         }
     }, [appleStockData]);
 
