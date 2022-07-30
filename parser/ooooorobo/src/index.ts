@@ -2,7 +2,10 @@ import {execSync} from "child_process";
 import {Commit, EditedFileInfo} from "./model/commit";
 
 const LOG_PREFIX = '@begin@';
-const LOG_DELIMITER = ','
+const LOG_DELIMITER = ',';
+const MAX_LOG_COUNT = 100;
+
+const REPO_PATH = process.argv[2];
 
 // git log 커맨드를 실행
 function runGitLogCommand() {
@@ -12,9 +15,9 @@ function runGitLogCommand() {
      * - 추가된 라인, 삭제된 라인, 파일명 (n줄)
      */
     // TODO 1: 커밋 정보에 들어갈 값을 옵션으로 분리
-    // TODO 2: 다른 레포지토리에서 git log를 실행 (exec의 cwd option 사용)
     const stdout = execSync(
-        `git log --reverse --pretty=${LOG_PREFIX}%p${LOG_DELIMITER}%h${LOG_DELIMITER}%an${LOG_DELIMITER}%ae${LOG_DELIMITER}%cd${LOG_DELIMITER}%s --numstat`
+        `git log --reverse --pretty=${LOG_PREFIX}%p${LOG_DELIMITER}%h${LOG_DELIMITER}%an${LOG_DELIMITER}%ae${LOG_DELIMITER}%cd${LOG_DELIMITER}%s --numstat | tail -n ${MAX_LOG_COUNT}`,
+            {cwd: REPO_PATH}
         );
     return stdout.toString();
 }
