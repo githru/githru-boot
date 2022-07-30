@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
+import { InputData, URLProps } from '@interface';
 import lineData from './line';
-import { InputData, URLProps } from '../types/interface';
 
 function parseDate(d: string) {
 	return d3.timeParse('%Y-%m-%d')(d);

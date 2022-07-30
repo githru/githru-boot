@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import OneLineChart from './pages/OneLineChart/OneLineChart';
-import Main from './pages/Main';
+import { Main, OneLineChart } from '@pages';
 
 function App() {
 	return (

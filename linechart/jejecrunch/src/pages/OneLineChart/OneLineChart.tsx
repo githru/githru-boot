@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Id, InputData, Ty } from '../../types/interface';
-import LineChart from '../../components/Linechart';
-import { readCSVurlData, readTSFileData } from '../../data/readData';
+import LineChart from '@components/Linechart';
+import { Id, InputData, Ty } from '@interface';
+import { readCSVurlData, readTSFileData } from '@data/readData';
 
 function OneLineChart({ number }: Id) {
 	const [data, setData] = useState<InputData[]>([]);
