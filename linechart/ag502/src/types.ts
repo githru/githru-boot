@@ -1,7 +1,8 @@
-import { DSVRowString } from 'd3';
+interface AppleStockColumnType {
+    date: Date;
+    close: number;
+}
 
-type AppleStockColumnType = 'date' | 'close';
-
-type AppleStockDataType = DSVRowString<AppleStockColumnType>[] & { columns?: AppleStockColumnType[] };
+type AppleStockDataType = AppleStockColumnType[] & { columns?: Array<keyof AppleStockColumnType> };
 
 export type { AppleStockDataType, AppleStockColumnType };
