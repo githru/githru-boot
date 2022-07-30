@@ -15,19 +15,16 @@ const TimeSeries = ({ width, height }) => {
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {
-    data && data.length > 0 ? drawChart() : getURLData();
+    data?.length > 0 ? drawChart() : getURLData();
   }, [data]);
 
   const getURLData = async () => {
-    const res = await d3
-      .csv(csvURL)
-      .then((res) =>
-        res.map((d) => ({
-          date: d3.timeParse("%Y-%m-%d")(d.date as string) as Date,
-          value: parseFloat(d.value as string),
-        }))
-      );
-    setData(res);
+    const res = await d3.csv(csvURL);
+    const data = res.map((d) => ({
+      date: d3.timeParse("%Y-%m-%d")(d.date as string) as Date,
+      value: parseFloat(d.value as string),
+    }));
+    setData(data);
   };
 
   const drawChart = () => {
