@@ -6,10 +6,12 @@ import { AppleStockColumnType } from './types';
 // @ts-ignore
 import AppleStockCSV from './assets/data/appleStock.csv';
 
-const lengthInfo = {}
+const lengthInfo = {};
 
 function App() {
-    const [appleStockData, setAppleStockData] = useState<d3.DSVRowArray<AppleStockColumnType> | never[]>([]);
+    const [appleStockData, setAppleStockData] = useState<
+        d3.DSVRowString<AppleStockColumnType>[] | d3.DSVRowArray<AppleStockColumnType>
+    >([]);
 
     const fetchAppleStockData = useCallback(async () => {
         try {
