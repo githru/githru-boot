@@ -45,9 +45,7 @@ const TimeSeries = ({ width, height }) => {
     // x축 스케일 생성
     var x = d3
       .scaleTime()
-      .domain(
-        d3.extent(data as Data[], (d) => d.date) as unknown as [number, number]
-      )
+      .domain(d3.extent(data as Data[], (d) => d.date) as [Date, Date])
       .range([0, width]);
 
     // x축 스케일 적용
