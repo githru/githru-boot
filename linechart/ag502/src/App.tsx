@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import * as d3 from 'd3';
 
 import { AppleStockDataType, AppleStockColumnType } from './types';
@@ -6,14 +6,24 @@ import { AppleStockDataType, AppleStockColumnType } from './types';
 // @ts-ignore
 import AppleStockCSV from './assets/data/appleStock.csv';
 
+const positionInfo = {
+    marginTop: 20, // top margin, in pixels
+    marginRight: 30, // right margin, in pixels
+    marginBottom: 30, // bottom margin, in pixels
+    marginLeft: 40, // left margin, in pixels
+    width: 640, // outer width, in pixels
+    height: 400,
+};
+
 function App() {
     const [appleStockData, setAppleStockData] = useState<AppleStockDataType>([]);
     const [numOfRows, setNumOfRows] = useState<number[]>([]);
     const [xValues, setXValues] = useState<Date[]>([]);
     const [yValues, setYValues] = useState<number[]>([]);
-    const [defined, setDefined] = useState<boolean[]>([]);
+    const [dataDefined, setDataDefined] = useState<boolean[]>([]);
     const [xDomain, setXDomain] = useState<Date[]>([]);
     const [yDomain, setYDomain] = useState<number[]>([]);
+    const [path, setPath] = useState<string>('');
 
     const fetchAppleStockData = useCallback(async () => {
         try {
@@ -29,6 +39,27 @@ function App() {
             setAppleStockData([]);
         }
     }, []);
+
+    const getXScale = useMemo(
+        () => d3.scaleUtc(xDomain, [positionInfo.marginLeft, positionInfo.width - positionInfo.marginRight]),
+        [xDomain],
+    );
+
+    const getYScale = useMemo(
+        () => d3.scaleLinear(yDomain, [positionInfo.height - positionInfo.marginBottom, positionInfo.marginTop]),
+        [yDomain],
+    );
+
+    const generateLine = useMemo(
+        () =>
+            d3
+                .line()
+                .defined((_, i) => dataDefined[i])
+                .curve(d3.curveLinear)
+                .x((_, i) => getXScale(xValues[i]))
+                .y((_, i) => getYScale(yValues[i])),
+        [dataDefined],
+    );
 
     useEffect(() => {
         fetchAppleStockData();
@@ -49,16 +80,32 @@ function App() {
             setXValues(curXValues);
             setYValues(curYValues);
             setNumOfRows(curNumOfRows);
-            setDefined(curDefined);
+            setDataDefined(curDefined);
             setXDomain(d3.extent(curXValues) as Date[]);
             setYDomain([0, d3.max(curYValues) as number]);
         }
     }, [appleStockData]);
 
+    useEffect(() => {
+        if (xDomain.length && yDomain.length && numOfRows.length) {
+            // @ts-ignore
+            const curPath = generateLine(numOfRows);
+            if (curPath) {
+                setPath(curPath);
+            }
+        }
+    }, [xDomain, yDomain]);
+
     return (
         <div className="App">
-            <svg>
-                <path />
+            <svg
+                width={positionInfo.width}
+                height={positionInfo.height}
+                viewBox={`0, 0, ${positionInfo.width}, ${positionInfo.height}`}
+            >
+                <g />
+                <g />
+                <path fill="none" stroke="red" d={path} />
             </svg>
         </div>
     );
