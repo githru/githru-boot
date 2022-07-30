@@ -14,7 +14,7 @@ function readTSFileData(): InputData[] {
 	return res;
 }
 
-async function readCSVurlData({ url }: URLProps): Promise<InputData[]> {
+function readCSVurlData({ url }: URLProps): Promise<InputData[]> {
 	return d3.csv(url).then((res) =>
 		res.map(({ date, value }) => ({
 			date: date && parseDate(date),
