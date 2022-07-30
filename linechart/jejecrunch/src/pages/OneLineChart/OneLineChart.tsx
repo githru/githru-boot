@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Id, InputData } from '../../types/interface';
-import LineChart from '../../components/LineChart';
+import LineChart from '../../components/Linechart';
 import { readCSVurlData, readTSFileData } from '../../data/readData';
 
 function OneLineChart({ number }: Id) {
