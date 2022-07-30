@@ -90,6 +90,7 @@ function App() {
         if (xDomain.length && yDomain.length && numOfRows.length) {
             // @ts-ignore
             const curPath = generateLine(numOfRows);
+
             if (curPath) {
                 setPath(curPath);
             }
@@ -103,8 +104,38 @@ function App() {
                 height={positionInfo.height}
                 viewBox={`0, 0, ${positionInfo.width}, ${positionInfo.height}`}
             >
+                <g transform={`translate(0, ${positionInfo.height - positionInfo.marginBottom})`}>
+                    {getXScale.ticks().map((tickValues) => (
+                        <g
+                            key={String(tickValues)}
+                            transform={`translate(${getXScale(tickValues)}, 0)`}
+                            textAnchor="middle"
+                        >
+                            <line y2={positionInfo.width / 80} stroke="green" />
+                            <text y={positionInfo.width / 80} dominantBaseline="hanging">
+                                {tickValues.getFullYear()}
+                            </text>
+                        </g>
+                    ))}
+                </g>
                 <g />
-                <g />
+                <g>
+                    {getYScale.ticks().map((tickValues) => (
+                        <g
+                            key={tickValues}
+                            transform={`translate(0,${getYScale(tickValues)})`}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                        >
+                            <line
+                                x1={positionInfo.marginLeft}
+                                x2={positionInfo.width - positionInfo.marginRight}
+                                stroke="green"
+                            />
+                            <text dx={positionInfo.marginLeft - 20}>{tickValues}</text>
+                        </g>
+                    ))}
+                </g>
                 <path fill="none" stroke="red" d={path} />
             </svg>
         </div>
