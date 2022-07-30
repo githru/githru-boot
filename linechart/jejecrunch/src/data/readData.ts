@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { InputData, URLProps } from '@interface';
+import { InputData, URLProps } from '../types/interface';
 import lineData from './line';
 
 function parseDate(d: string) {
