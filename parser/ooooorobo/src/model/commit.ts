@@ -1,7 +1,7 @@
 export interface Commit {
     commitHash: string;
     parentHash: string;
-    committedAt: string;
+    committedAt: Date;
     title: string;
     author: Author;
     editedFileInfoList: EditedFileInfo[];

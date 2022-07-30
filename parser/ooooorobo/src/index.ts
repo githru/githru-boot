@@ -47,7 +47,7 @@ function parseLogIntoCommit(log: string): Commit[] {
             return {
                 parentHash,
                 commitHash,
-                committedAt,
+                committedAt: new Date(committedAt),
                 title,
                 author: {
                     name: authorName,
