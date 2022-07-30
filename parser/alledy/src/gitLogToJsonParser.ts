@@ -41,7 +41,7 @@ export function gitLogToJsonParser(
       .slice(0, -1)
       .map((x) => x.split("| ")[0].trim());
 
-    const fileDffString = fileChange.slice(-1)[0];
+    const fileDffString = fileChange.slice(-1)[0] ?? "";
     const insertions = fileDffString.match(/(\d+) insertions\S+/)?.[1] ?? 0;
     const deletions = fileDffString.match(/(\d+) deletions/)?.[1] ?? 0;
 
