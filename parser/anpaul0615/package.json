@@ -1,0 +1,29 @@
+{
+  "name": "parser-anpaul0615",
+  "version": "1.0.0",
+  "description": "parser for getting git log information as node graph",
+  "scripts": {
+    "start": "cd dist && node index.js",
+    "build": "node scripts/build.js",
+    "lint": "eslint --ext .ts src/",
+    "test": ""
+  },
+  "keywords": [
+    "gitlog",
+    "networkx"
+  ],
+  "author": "anpaul0615",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "typescript": "^4.7.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "@typescript-eslint/parser": "^5.30.7",
+    "prettier": "^2.7.1",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier-airbnb-config": "^1.0.0",
+    "esbuild": "^0.14.49"
+  }
+}
