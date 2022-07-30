@@ -1,25 +1,17 @@
-import type * as Parser from "../gitLogToJSONParser";
+import type * as Parser from "../logToJson";
 // automock: true configuration 설정때문에 jest.requireActual을 써야함
-const { gitLogToJSONParser } = jest.requireActual<typeof Parser>(
-  "../gitLogToJSONParser"
-);
-const { parse01 } = jest.requireActual<typeof Parser>("../gitLogToJSONParser");
+const { parseToJSON } = jest.requireActual<typeof Parser>("../logToJson");
 
 import type * as Data from "../data/example";
-const { exampleLog01, exampleResult01 } =
+
+const { exampleLog02, exampleResult02 } =
   jest.requireActual<typeof Data>("../data/example");
 
-describe("parser function", () => {
-  test("temporary parser function", () => {
-    expect(gitLogToJSONParser()).toBe("This is parser function");
-  });
-});
-
-describe("example parser01", () => {
-  test("parser01", () => {
+describe("example parser02", () => {
+  test("parser02", () => {
     // If it should pass with deep equality, replace "toBe" with "toStrictEqual"
     // serializes to the same string
-    expect(parse01(exampleLog01)).toStrictEqual(exampleResult01);
+    expect(parseToJSON(exampleLog02)).toStrictEqual(exampleResult02);
   });
 });
 export {};
