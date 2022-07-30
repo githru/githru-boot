@@ -1,4 +1,7 @@
-export const returnValue = 'hello world';
+import { collect } from "./collector"
+import { parse } from "./parser"
+import { save } from "./repository"
 
-console.log('[L] :', returnValue);
-const unusedValue = 0;
+collect();
+parse();
+save();
