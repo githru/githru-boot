@@ -1,7 +1,6 @@
 import React from "react";
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
-import { ValueFn } from "d3";
 
 interface Data {
   date: Date;
@@ -73,7 +72,7 @@ const TimeSeries = ({ width, height }) => {
       .attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-width", 1.5)
-      .attr("d", line as ValueFn<SVGPathElement, Data[], string>);
+      .attr("d", line as d3.ValueFn<SVGPathElement, Data[], string>);
   };
 
   return <div id="time-series" />;
