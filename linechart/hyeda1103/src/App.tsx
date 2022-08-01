@@ -67,7 +67,7 @@ function App() {
         return <LineChart data={lineData} />
       }
       default:
-        break;
+        throw new Error('Unhandled action type')
     }
   }, [status, lineData, errorResult])
 
