@@ -1,5 +1,5 @@
 // 참고: https://www.30secondsofcode.org/articles/s/js-data-structures-tree
-class TreeNode<T> {
+export class TreeNode<T> {
     private _key: string;
     private _value: T;
     private _parent: TreeNode<T> | null;
@@ -28,11 +28,17 @@ class TreeNode<T> {
     }
 
     get isLeaf(): boolean {
-        return Boolean(this._children.length);
+        return this._children.length === 0;
+    }
+
+    public removeChild(key: string): void {
+        this._children = this._children.filter(child => {
+            return child.key !== key
+        });
     }
 }
 
-class Tree<T> {
+export class Tree<T> {
     private root: TreeNode<T>;
 
     constructor(key: string, value: T) {
@@ -63,7 +69,7 @@ class Tree<T> {
         if (!parentNode) {
             return false;
         }
-        parentNode.children.push(new TreeNode<T>(key, child));
+        parentNode.children.push(new TreeNode<T>(key, child, parentNode));
         return true;
     }
 
@@ -71,12 +77,15 @@ class Tree<T> {
      * key 값을 가지는 노드를 Tree에서 삭제
      * @param key
      */
-    public remove(key: string): void {
+    public remove(key: string): boolean {
+        let removed = false;
         for (const node of this.preOrderTraversal(this.root)) {
             if (node.key === key) {
-                node.parent?.children.filter(child => child.key !== key);
+                node.parent?.removeChild(key);
+                removed = true;
             }
         }
+        return removed;
     }
 
     /**
