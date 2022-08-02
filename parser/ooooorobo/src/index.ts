@@ -29,13 +29,13 @@ function runGitLogCommand() {
 function parseLogIntoCommit(log: string): Commit[] {
     return log
         .split(`${LOG_PREFIX}`)
-        .filter(commit => Boolean(commit))
+        .filter(Boolean)
         .map(commitLog => {
             const lines = commitLog.split('\n');
             // TODO: git log 실행할 때 pretty 옵션에 줬던 순서와 동일하도록 한 곳에서 관리하기
             const [parentHash, commitHash, authorName, authorMail, committedAt, title] = lines[0].split(LOG_DELIMITER);
             const editedFileInfoList: EditedFileInfo[] = lines.splice(1)
-                .filter(line => Boolean(line))
+                .filter(Boolean)
                 .map(line => {
                     const [addedLineCount, removedLineCount, fileName] = line.trim().split('\t')
                     return {
