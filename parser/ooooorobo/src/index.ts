@@ -1,5 +1,6 @@
 import {execSync} from "child_process";
 import {Commit, EditedFileInfo} from "./model/commit";
+import {Tree} from "./model/tree";
 
 const LOG_PREFIX = '@begin@';
 const LOG_DELIMITER = ',';
@@ -59,5 +60,23 @@ function parseLogIntoCommit(log: string): Commit[] {
         })
 }
 
-parseLogIntoCommit(runGitLogCommand())
-    .forEach(commit => console.log(commit));
+function generateCommitTree(commitList: Commit[]): Tree<Commit>[] {
+    const treeList: Tree<Commit>[] = []
+    const headCommits = commitList.filter(commit => commit.parentHashList.length === 0);
+    for (const head of headCommits) {
+        const tree = new Tree(head.commitHash, head);
+        treeList.push(tree);
+    }
+    for (const commit of commitList) {
+        if (commit.parentHashList.length === 0) continue;
+        treeList.forEach(tree =>
+            commit.parentHashList.forEach(hash =>
+                tree.insert(hash, commit.commitHash, commit)
+            )
+        );
+    }
+    return treeList;
+}
+
+generateCommitTree(parseLogIntoCommit(runGitLogCommand()))
+    .forEach(tree => [...tree.preOrderTraversal()].map(x => console.log(x.parent?.key, x.key)))
