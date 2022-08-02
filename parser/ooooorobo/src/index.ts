@@ -45,7 +45,8 @@ function parseLogIntoCommit(log: string): Commit[] {
                     } as EditedFileInfo;
                 });
             return {
-                parentHash,
+                // 부모 해시는 n(>=0)개 이상의 space로 구분된 string 배열임
+                parentHash: parentHash.split(' '),
                 commitHash,
                 committedAt: new Date(committedAt),
                 title,

@@ -1,6 +1,6 @@
 export interface Commit {
     commitHash: string;
-    parentHash: string;
+    parentHash: string[];
     committedAt: Date;
     title: string;
     author: Author;
