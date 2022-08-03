@@ -62,9 +62,9 @@ function parseLogIntoCommit(log: string): Commit[] {
 
 function generateCommitTree(commitList: Commit[]): Tree<Commit>[] {
     const treeList: Tree<Commit>[] = []
-    const headCommits = commitList.filter(commit => commit.parentHashList.length === 0);
-    for (const head of headCommits) {
-        const tree = new Tree(head.commitHash, head);
+    const rootCommits = commitList.filter(commit => commit.parentHashList.length === 0);
+    for (const root of rootCommits) {
+        const tree = new Tree(root.commitHash, root);
         treeList.push(tree);
     }
     for (const commit of commitList) {
