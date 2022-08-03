@@ -24,9 +24,13 @@ export const save = async (repoName: string, githruData: Array<GithruCommit>) =>
   const filePath = path.resolve(repoRootPath, `${repoName}.commits.json`);
 
   if (fs.existsSync(filePath)) {
-    throw new Error(`commits.json is already exist..! : ${filePath}`);
+    console.warn('commits.json is already exist..!');
+    console.warn('new file overwriting...');
+    fs.unlinkSync(filePath);
   }
 
   const wStream = fs.createWriteStream(filePath, { flags: 'w' });
   await writeJSON(wStream, githruData);
+
+  console.log(`done!! : ${filePath}`);
 }
