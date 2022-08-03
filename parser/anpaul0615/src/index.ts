@@ -8,7 +8,7 @@ const repoName = '<GIT-REPO>';
   try {
     const gitLog = await collect(repoName);
     const githruData = parse(gitLog);
-    save();
+    await save(repoName, githruData);
   } catch(e) {
     console.error('e : ', e);
   }
