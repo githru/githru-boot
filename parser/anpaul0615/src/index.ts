@@ -7,7 +7,7 @@ const repoName = '<GIT-REPO>';
 (async () => {
   try {
     const gitLog = await collect(repoName);
-    parse();
+    const githruData = parse(gitLog);
     save();
   } catch(e) {
     console.error('e : ', e);
