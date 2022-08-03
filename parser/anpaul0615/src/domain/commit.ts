@@ -1,3 +1,19 @@
+export class CommitUnit {
+  header: string;
+  message: string;
+  numStat?: string;
+
+  private constructor(props: any) {
+    this.header = props.header;
+    this.message= props.message;
+    this.numStat= props.numStat;
+  }
+
+  static createFrom(props: any) {
+    return new CommitUnit(props);
+  }
+}
+
 export class PrettyFullerCommit {
   hash: string;
   parentHash1?: string;
