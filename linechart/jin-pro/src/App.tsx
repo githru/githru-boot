@@ -1,4 +1,3 @@
-import React from "react";
 import { Chart } from "./Chart";
 
 function App() {
@@ -6,8 +5,8 @@ function App() {
     <div className="App">
       <Chart>
         <Chart.Graph />
-        <Chart.XAxis />
-        <Chart.YAxis />
+        {/* <Chart.XAxis />
+        <Chart.YAxis /> */}
       </Chart>
     </div>
   );
