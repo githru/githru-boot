@@ -23,46 +23,46 @@ const LineChart = () => {
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   // x축
-  const xAxis = d3
+  const xScale = d3
     .scaleTime()
     .domain(d3.extent(data, d => d.date))
     .range([0, width])
     .nice();
-  svg
-    .append('g')
-    .attr('transform', `translate(0, ${height})`)
-    .call(d3.axisBottom(xAxis));
+  const xAxis = d3
+    .axisBottom(xScale)
+    .tickFormat(d => d3.timeFormat('%a %d')(d));
+  svg.append('g').attr('transform', `translate(0, ${height})`).call(xAxis);
 
   // y축
-  const yAxis = d3
+  const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, d => +d.value)])
+    .domain([0, d3.max(data, d => d.temp)])
     .range([height, 0])
     .nice();
-  svg.append('g').call(d3.axisLeft(yAxis));
+  const yAxis = d3.axisLeft(yScale);
+  svg.append('g').call(yAxis);
 
   // x,y축 그리드
   svg
     .append('g')
     .attr('class', 'grid')
     .style('color', 'gray')
-    .call(d3.axisBottom(xAxis).tickSize(height).tickFormat(''));
+    .call(d3.axisBottom(xScale).tickSize(height).tickFormat(''));
   svg
     .append('g')
     .attr('class', 'grid')
     .style('color', 'gray')
-    .call(d3.axisRight(yAxis).tickSize(width).tickFormat(''));
+    .call(d3.axisRight(yScale).tickSize(width).tickFormat(''));
 
   const line = d3
     .line()
-    .x(d => xAxis(d.date))
-    .y(d => yAxis(d.value))
+    .x(d => xScale(d.date))
+    .y(d => yScale(d.temp))
     .curve(d3.curveBasis);
 
   svg
-    .selectAll('.line')
-    .data([data])
-    .join('path')
+    .datum(data)
+    .append('path')
     .attr('fill', 'none')
     .attr('stroke', 'steelblue')
     .attr('stroke-width', 1.5)
@@ -72,7 +72,7 @@ const LineChart = () => {
     d3.csv(csvURL, d => ({
       city: d.city,
       date: new Date(d.timestamp),
-      value: d.temperature,
+      temp: +d.temperature,
     })).then(data => {
       const cityData = data.filter(d => d.city === city);
       setData(cityData);
