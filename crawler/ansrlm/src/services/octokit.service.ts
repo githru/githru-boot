@@ -1,4 +1,4 @@
-import {Octokit} from '@octokit/rest';
+import PluginOctokit from '../classes/pluginOctokit.class';
 
 interface Props {
   owner: string;
@@ -7,11 +7,33 @@ interface Props {
 
 export default class OctokitService {
   private props: Props;
-  private octokit: Octokit;
+  private octokit: PluginOctokit;
 
   constructor(props: Props) {
     this.props = {...props};
-    this.octokit = new Octokit();
+    this.octokit = new PluginOctokit({
+      throttle: {
+        onRateLimit: (retryAfter, options) => {
+          const {
+            method,
+            url,
+            request: {retryCount},
+          } = options as {method: string; url: string; request: {retryCount: number}};
+          this.octokit.log.warn(`[L] - request quota exhausted for request ${method} ${url}`);
+
+          if (retryCount <= 1) {
+            this.octokit.log.warn(`[L] - retrying after ${retryAfter} seconds!`);
+            return true;
+          } else {
+            return false;
+          }
+        },
+        onAbuseLimit: (retryAfter, options) => {
+          const {method, url} = options as {method: string; url: string};
+          this.octokit.log.warn(`[L] - abuse detected for request ${method} ${url}`);
+        },
+      },
+    });
   }
 
   public getPullRequests = async (showDetail?: boolean) => {
@@ -23,10 +45,7 @@ export default class OctokitService {
     });
 
     if (showDetail) {
-      const pullNumbers: number[] = [];
-      for (const pullRequest of data) {
-        pullNumbers.push(pullRequest.number);
-      }
+      const pullNumbers = data.map(item => item.number);
 
       const detailPullRequests = await Promise.all(
         pullNumbers.map(pull_number =>

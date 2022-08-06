@@ -4,6 +4,6 @@ export const isValidForOctokit = (input: string) => {
 };
 
 export const getOctokitProps = (input: string) => {
-  const inputArray = input.split('/');
-  return {owner: inputArray[0], repo: inputArray[1]};
+  const [owner, repo] = input.split('/');
+  return {owner, repo};
 };
