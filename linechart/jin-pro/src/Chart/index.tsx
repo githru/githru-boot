@@ -6,13 +6,16 @@ type Props = {
   Graph: React.FC;
   XAxis: React.FC;
   YAxis: React.FC;
-} & React.FC<{ children: ReactNode[] }>;
+} & React.FC<{ children: ReactNode }>;
 
 export const Chart: Props = ({ children }) => {
   const value = useGetChartDatas();
+  const { wrapperRef, svgRef } = value;
   return (
     <ChartDataContext.Provider value={value}>
-      {children}
+      <div ref={wrapperRef} style={{ marginBottom: "2rem" }}>
+        <svg ref={svgRef}>{children}</svg>
+      </div>
     </ChartDataContext.Provider>
   );
 };
