@@ -1,0 +1,14 @@
+{
+  "name": "ytaek",
+  "version": "1.0.0",
+  "description": "여기에 과제 구현 설명을 적어주시면 됩니다.",
+  "main": "stat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
