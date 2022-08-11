@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  text-align: center;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.city {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.focusText {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.grid {
+  color: #c4c4c4;
+}
