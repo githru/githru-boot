@@ -1,5 +1,6 @@
 import {execSync} from "child_process";
 import {Commit, EditedFileInfo} from "./model/commit";
+import {Tree} from "./model/tree";
 
 const LOG_PREFIX = '@begin@';
 const LOG_DELIMITER = ',';
@@ -29,13 +30,13 @@ function runGitLogCommand() {
 function parseLogIntoCommit(log: string): Commit[] {
     return log
         .split(`${LOG_PREFIX}`)
-        .filter(commit => Boolean(commit))
+        .filter(Boolean)
         .map(commitLog => {
             const lines = commitLog.split('\n');
             // TODO: git log 실행할 때 pretty 옵션에 줬던 순서와 동일하도록 한 곳에서 관리하기
             const [parentHash, commitHash, authorName, authorMail, committedAt, title] = lines[0].split(LOG_DELIMITER);
             const editedFileInfoList: EditedFileInfo[] = lines.splice(1)
-                .filter(line => Boolean(line))
+                .filter(Boolean)
                 .map(line => {
                     const [addedLineCount, removedLineCount, fileName] = line.trim().split('\t')
                     return {
@@ -45,7 +46,8 @@ function parseLogIntoCommit(log: string): Commit[] {
                     } as EditedFileInfo;
                 });
             return {
-                parentHash,
+                // 부모 해시는 n(>=0)개 이상의 space로 구분된 string 배열임
+                parentHashList: parentHash.split(' ').filter(Boolean),
                 commitHash,
                 committedAt: new Date(committedAt),
                 title,
@@ -58,5 +60,23 @@ function parseLogIntoCommit(log: string): Commit[] {
         })
 }
 
-parseLogIntoCommit(runGitLogCommand())
-    .forEach(commit => console.log(commit));
+function generateCommitTree(commitList: Commit[]): Tree<Commit>[] {
+    const treeList: Tree<Commit>[] = []
+    const rootCommits = commitList.filter(commit => commit.parentHashList.length === 0);
+    for (const root of rootCommits) {
+        const tree = new Tree(root.commitHash, root);
+        treeList.push(tree);
+    }
+    for (const commit of commitList) {
+        if (commit.parentHashList.length === 0) continue;
+        treeList.forEach(tree =>
+            commit.parentHashList.forEach(hash =>
+                tree.insert(hash, commit.commitHash, commit)
+            )
+        );
+    }
+    return treeList;
+}
+
+generateCommitTree(parseLogIntoCommit(runGitLogCommand()))
+    .forEach(tree => [...tree.preOrderTraversal()].map(x => console.log(x.parent?.key, x.key)))
