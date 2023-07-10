@@ -1,24 +1,48 @@
 {
-  "name": "lsp",
-  "displayName": "LSP",
-  "description": "",
+  "name": "githru-vscode-ext",
+  "displayName": "githru-vscode-ext",
+  "description": "vscode extension module for githru-vscode-ext",
+  "publisher": "githru",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.80.0"
   },
+  "author": {
+    "name": "team githru"
+  },
   "categories": [
-    "Other"
+    "Other",
+    "SCM Providers"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "githru",
+    "git",
+    "GitHub",
+    "log",
+    "visualization",
+    "visual analytics"
+  ],
+  "activationEvents": [
+    "*"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "lsp.test",
-        "title": "Test Lsp",
-        "category": "Githru"
+    "configuration": {
+      "type": "Githru",
+      "properties": {
+        "githru.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the language server."
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
