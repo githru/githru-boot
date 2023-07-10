@@ -14,8 +14,9 @@
   "contributes": {
     "commands": [
       {
-        "command": "lsp.helloWorld",
-        "title": "Hello World"
+        "command": "lsp.test",
+        "title": "Test Lsp",
+        "category": "Githru"
       }
     ]
   },
