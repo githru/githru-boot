@@ -1,7 +1,3 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
 import {
   createConnection,
   TextDocuments,
@@ -89,7 +85,7 @@ interface ExampleSettings {
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: ExampleSettings = { maxNumberOfProblems: 1000 };
+const defaultSettings: ExampleSettings = { maxNumberOfProblems: 100 };
 let globalSettings: ExampleSettings = defaultSettings;
 
 // Cache the settings of all open documents
@@ -101,7 +97,7 @@ connection.onDidChangeConfiguration((change) => {
     documentSettings.clear();
   } else {
     globalSettings = <ExampleSettings>(
-      (change.settings.languageServerExample || defaultSettings)
+      (change.settings.githru || defaultSettings)
     );
   }
 
@@ -117,7 +113,7 @@ function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
   if (!result) {
     result = connection.workspace.getConfiguration({
       scopeUri: resource,
-      section: "languageServerExample",
+      section: "githru",
     });
     documentSettings.set(resource, result);
   }
@@ -132,6 +128,7 @@ documents.onDidClose((e) => {
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent((change) => {
+  console.log(change);
   validateTextDocument(change.document);
 });
 

@@ -1,1 +1,1 @@
-# @vscode/Jinho1011
+# vscode/Jinho1011
