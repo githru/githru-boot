@@ -7,6 +7,10 @@ function App() {
     const height = 300;
     const [data, setData] = useState([40, 80, 150, 160, 230, 260]);
 
+    const removeSvg = () => {
+        d3.select(ref.current).call((g) => g.select("circle").remove());
+    };
+
     useEffect(() => {
         const currentElement = ref.current;
         const svg = d3.select(currentElement);
@@ -20,6 +24,7 @@ function App() {
     return (
         <>
             <h1> Line Chart </h1>
+            <button onClick={removeSvg}>지우기</button>
             <svg
                 className="container"
                 ref={ref}
