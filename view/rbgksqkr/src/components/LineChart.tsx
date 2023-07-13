@@ -1,24 +1,17 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import { lineData } from "../sampleData";
+import { getNewElement, getXAccessor, getYAccessor } from "../utils/lineChart";
 
-const getNewElement = (
-    target: HTMLDivElement | null,
-    width: number,
-    height: number
-) => {
-    return d3
-        .select(target)
-        .call((g) => g.select("svg").remove())
-        .append("svg")
-        .attr("viewBox", `0,0,${width},${height}`);
-};
-
+interface ILineData {
+    d: any;
+    v: number;
+}
 const LineChart = () => {
     const ref = useRef<HTMLDivElement>(null);
     const width = 300;
     const height = 300;
-    const [values, setValues] = useState(lineData);
+    const [values, setValues] = useState<ILineData[]>(lineData);
 
     useEffect(() => {
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -32,18 +25,8 @@ const LineChart = () => {
             v,
         }));
 
-        const xDomain = d3.extent(data, (data) => data.d) as [number, number];
-        const x = d3
-            .scaleUtc()
-            .domain(xDomain)
-            .range([margin.left, width - margin.right]);
-
-        const yMax = d3.max(data, (data) => data.v) as number;
-        const y = d3
-            .scaleLinear()
-            .domain([0, yMax])
-            .nice()
-            .range([height - margin.bottom, margin.top]);
+        const x = getXAccessor(values, width);
+        const y = getYAccessor(values, height);
 
         const xAxis = (g: any) =>
             g.attr("transform", `translate(0,${height - margin.bottom})`).call(
