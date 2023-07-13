@@ -37,6 +37,24 @@ function App() {
             .domain([0, yMax])
             .nice()
             .range([height - margin.bottom, margin.top]);
+
+        const xAxis = (g: any) =>
+            g.attr("transform", `translate(0,${height - margin.bottom})`).call(
+                d3
+                    .axisBottom(x)
+                    .ticks(width / 80)
+                    .tickSizeOuter(0)
+            );
+        documentElement.append("g").call(xAxis);
+
+        const yAxis: any = (g: any) =>
+            g
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+        documentElement
+            .append<SVGGElement>("g")
+            .call(yAxis)
+            .call((g) => g.select(".domain").remove());
     }, [values]);
 
     return (
