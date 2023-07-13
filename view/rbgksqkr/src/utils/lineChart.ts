@@ -30,16 +30,27 @@ export const getXAccessor = (values: ILineData[], width: number) => {
         .range([margin.left, width - margin.right]);
 };
 
-export const getYAccessor = (values: ILineData[], height: number) => {
-    const parseDate: any = d3.timeParse("%Y-%m-%d");
-    const data = values.map(({ d, v }) => ({
-        d: parseDate(d),
-        v,
-    }));
+export const getYAccessor = (data: ILineData[], height: number) => {
     const yMax = d3.max(data, (data) => data.v) as number;
     return d3
         .scaleLinear()
         .domain([0, yMax])
         .nice()
         .range([height - margin.bottom, margin.top]);
+};
+
+export const drawPath = (
+    documentElement: any,
+    data: ILineData[],
+    d3Type: any
+) => {
+    documentElement
+        .append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("d", (data: ILineData) => d3Type(data));
 };
