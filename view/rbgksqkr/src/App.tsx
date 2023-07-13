@@ -1,11 +1,12 @@
 import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
+import { lineData } from "./sampleData";
 
 function App() {
     const ref = useRef<SVGSVGElement>(null);
     const width = 300;
     const height = 300;
-    const [data, setData] = useState([40, 80, 150, 160, 230, 260]);
+    const [data, setData] = useState([lineData]);
 
     const removeSvg = () => {
         d3.select(ref.current).call((g) => g.select("circle").remove());
