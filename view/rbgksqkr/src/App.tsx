@@ -3,15 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { lineData } from "./sampleData";
 
 function App() {
-    const ref = useRef<SVGSVGElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const width = 300;
     const height = 300;
-    const [data, setData] = useState([lineData]);
+    const [data, setData] = useState(lineData);
 
-    const calculateDate = () => {
+    const parseDate = (date: string) => {
         const formatTime = d3.timeParse("%Y-%m-%d");
-        const date = formatTime(data[0][0].d);
-        console.log(date);
+        return formatTime(date);
     };
 
     const removeSvg = () => {
@@ -21,24 +20,23 @@ function App() {
     useEffect(() => {
         const currentElement = ref.current;
         const svg = d3.select(currentElement);
-        svg.append("circle")
+        svg.append("svg")
+            .append("circle")
             .attr("r", 5)
-            .attr("cx", width / 5)
-            .attr("cy", height / 2)
+            .attr("cx", 30)
+            .attr("cy", 50)
             .attr("fill", "red");
     }, [data]);
 
     return (
         <>
             <h1> Line Chart </h1>
-            <button onClick={calculateDate}>날짜 계산</button>
             <button onClick={removeSvg}>지우기</button>
-            <svg
+            <div
                 className="container"
+                style={{ width: width, height: height }}
                 ref={ref}
-                width={width}
-                height={height}
-            ></svg>
+            ></div>
         </>
     );
 }
