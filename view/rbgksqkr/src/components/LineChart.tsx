@@ -2,6 +2,18 @@ import * as d3 from "d3";
 import { useEffect, useRef, useState } from "react";
 import { lineData } from "../sampleData";
 
+const getNewElement = (
+    target: HTMLDivElement | null,
+    width: number,
+    height: number
+) => {
+    return d3
+        .select(target)
+        .call((g) => g.select("svg").remove())
+        .append("svg")
+        .attr("viewBox", `0,0,${width},${height}`);
+};
+
 const LineChart = () => {
     const ref = useRef<HTMLDivElement>(null);
     const width = 300;
@@ -12,11 +24,7 @@ const LineChart = () => {
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
         const currentElement = ref.current;
 
-        const documentElement = d3
-            .select(currentElement)
-            .call((g) => g.select("svg").remove())
-            .append("svg")
-            .attr("viewBox", `0,0,${width},${height}`);
+        const documentElement = getNewElement(currentElement, width, height);
 
         const parseDate: any = d3.timeParse("%Y-%m-%d");
         const data = values.map(({ d, v }) => ({
