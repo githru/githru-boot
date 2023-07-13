@@ -8,14 +8,16 @@ function App() {
     const height = 300;
     const [values, setValues] = useState(lineData);
 
-    const removeSvg = () => {
-        d3.select(ref.current).call((g) => g.select("circle").remove());
-    };
-
     useEffect(() => {
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
         const currentElement = ref.current;
         const svg = d3.select(currentElement);
+
+        const documentElement = d3
+            .select(currentElement)
+            .call((g) => g.select("svg").remove())
+            .append("svg")
+            .attr("viewBox", `0,0,${width},${height}`);
 
         const parseDate: any = d3.timeParse("%Y-%m-%d");
         const data = values.map(({ d, v }) => ({
@@ -40,7 +42,6 @@ function App() {
     return (
         <>
             <h1> Line Chart </h1>
-            <button onClick={removeSvg}>지우기</button>
             <div
                 className="container"
                 style={{ width: width, height: height }}
