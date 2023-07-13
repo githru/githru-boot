@@ -11,7 +11,6 @@ function App() {
     useEffect(() => {
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
         const currentElement = ref.current;
-        const svg = d3.select(currentElement);
 
         const documentElement = d3
             .select(currentElement)
@@ -55,6 +54,21 @@ function App() {
             .append<SVGGElement>("g")
             .call(yAxis)
             .call((g) => g.select(".domain").remove());
+
+        const d3Type: Function = d3
+            .line()
+            .x((value: any) => x(value.d))
+            .y((value: any) => y(value.v));
+
+        documentElement
+            .append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 1.5)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("d", (data) => d3Type(data));
     }, [values]);
 
     return (
@@ -62,7 +76,7 @@ function App() {
             <h1> Line Chart </h1>
             <div
                 className="container"
-                style={{ width: width, height: height }}
+                style={{ width: "70%", height: height }}
                 ref={ref}
             ></div>
         </>
