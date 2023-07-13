@@ -8,6 +8,12 @@ function App() {
     const height = 300;
     const [data, setData] = useState([lineData]);
 
+    const calculateDate = () => {
+        const formatTime = d3.timeParse("%Y-%m-%d");
+        const date = formatTime(data[0][0].d);
+        console.log(date);
+    };
+
     const removeSvg = () => {
         d3.select(ref.current).call((g) => g.select("circle").remove());
     };
@@ -25,6 +31,7 @@ function App() {
     return (
         <>
             <h1> Line Chart </h1>
+            <button onClick={calculateDate}>날짜 계산</button>
             <button onClick={removeSvg}>지우기</button>
             <svg
                 className="container"
