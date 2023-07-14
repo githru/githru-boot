@@ -1,46 +1,10 @@
-# Getting Started with Create React App
+# 안녕하세요! 프론트엔드 공부하고 있는 박규한입니다 !
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+중앙대학교 소프트웨어학부 3학년 재학중인 박규한이라고 합니다 😎<br>
+작년 10월부터 프론트엔드 공부하고 있고 <br>
+지금은 `react`, `react-native`, `nextjs` 에 좀더 관심을 갖고 있습니다. <br><br>
 
-## Available Scripts
+FE개발자를 희망하기 때문에 3가지 파트 중에는 `view` 파트가 재밌어보이고, <br>
+첫 회의 시간에 들었을 때 `vscode` 파트도 재밌을 것 같아요 !!!! <br><br>
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+오픈소스 기여하는 활동 꼭 해보고 싶었는데 재밌게 즐겁게 했으면 좋겠습니당🔥
