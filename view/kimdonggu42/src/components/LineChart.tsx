@@ -57,6 +57,16 @@ function LineChart() {
 
     svg.append<SVGGElement>('g').call(xAxis);
     svg.append<SVGGElement>('g').call(yAxis);
+
+    svg
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1.5)
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-linecap', 'round')
+      .attr('d', line(data));
   }, []);
 
   return (
