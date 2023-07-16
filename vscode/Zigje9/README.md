@@ -1,37 +1,15 @@
-# LSP Example
+## 자기소개
 
-Heavily documented sample code for https://code.visualstudio.com/api/language-extensions/language-server-extension-guide
+안녕하세요!
 
-## Functionality
+프론트엔드 개발하고 있는 박제구 입니다.
 
-This Language Server works for plain text file. It has the following language features:
-- Completions
-- Diagnostics regenerated on each file change or configuration change
+`여행` ✈️ 이라는 키워드로 소개했는데,
+실제로 여행을 좋아하기도 하고 여행관련 스타트업에서 일하고 있습니다. ~~kyte(https://kyte.travel/)~~
 
-It also includes an End-to-End test.
+## 관심
 
-## Structure
+이번 프로젝트에서 view / vscode 에 열심히 참여하고 싶습니다!
+view 의 시각화는 제대로 다루어본 경험이 없고, vscode extension 은 처음 접해보는 분야라 관심이가네요!
 
-```
-.
-├── client // Language Client
-│   ├── src
-│   │   ├── test // End to End tests for Language Client / Server
-│   │   └── extension.ts // Language Client entry point
-├── package.json // The extension manifest.
-└── server // Language Server
-    └── src
-        └── server.ts // Language Server entry point
-```
-
-## Running the Sample
-
-- Run `npm install` in this folder. This installs all necessary npm modules in both the client and server folder
-- Open VS Code on this folder.
-- Press Ctrl+Shift+B to start compiling the client and server in [watch mode](https://code.visualstudio.com/docs/editor/tasks#:~:text=The%20first%20entry%20executes,the%20HelloWorld.js%20file.).
-- Switch to the Run and Debug View in the Sidebar (Ctrl+Shift+D).
-- Select `Launch Client` from the drop down (if it is not already).
-- Press ▷ to run the launch config (F5).
-- In the [Extension Development Host](https://code.visualstudio.com/api/get-started/your-first-extension#:~:text=Then%2C%20inside%20the%20editor%2C%20press%20F5.%20This%20will%20compile%20and%20run%20the%20extension%20in%20a%20new%20Extension%20Development%20Host%20window.) instance of VSCode, open a document in 'plain text' language mode.
-  - Type `j` or `t` to see `Javascript` and `TypeScript` completion.
-  - Enter text content such as `AAA aaa BBB`. The extension will emit diagnostics for all words in all-uppercase.
+잘 부탁드립니다~
