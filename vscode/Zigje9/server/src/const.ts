@@ -1,5 +1,6 @@
 import { CompletionItem, CompletionItemKind } from "vscode-languageserver/node";
 
+/** Add an autocomplete snippet */
 export const completionItemInfos: CompletionItem[] = [
   {
     label: "githru",
