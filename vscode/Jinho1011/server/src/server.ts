@@ -8,6 +8,8 @@ import {
 const connection = createConnection(ProposedFeatures.all);
 
 connection.onInitialize((params: InitializeParams) => {
+  connection.console.log("Server has initialized");
+
   const result: InitializeResult = {
     capabilities: {},
   };

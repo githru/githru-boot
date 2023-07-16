@@ -25,7 +25,7 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./dist/extension.js",
+  "main": "./client/out/extension.js",
   "contributes": {
     "configuration": {
       "type": "Githru",
