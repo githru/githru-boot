@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "lsp server sample",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "format": "prettier --ignore-path .gitignore --write",
+    "test:lint": "eslint --debug"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "*.{ts,js,md}": [
+      "npm run format",
+      "npm run test:lint"
+    ]
+  }
+}
