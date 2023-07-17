@@ -25,18 +25,33 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
   });
   setAllData(formatData);
 
-  const x = d3
-    .scaleUtc()
-    .domain(d3.extent(data, (d) => d.date))
-    .range([0, width])
-    .nice();
+  useEffect(() => {
+    if (chartData.length === 0) return;
+    const svg = d3.select(svgRef.current);
 
-  const xAxis = d3.axisBottom(x).tickFormat((d) => d3.timeFormat('%b %d')(d));
-  svg.append('g').attr('transform', `translate(0, ${height})`).call(xAxis);
+    // 차트 영역, 여백 설정
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const width = 600 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
-  const svg = d3.select;
+    // x축 범위
+    const xScale = d3
+      .scalePoint()
+      .domain(chartData[0]?.values.map((d) => d.date.getMonth() + 1))
+      .range([0, width]);
 
-  return <div></div>;
+    // y축 범위
+    const yScale = d3.scaleLinear().domain([0, 1500]).range([height, 0]);
+  });
+
+  return (
+    <div>
+      <h3>2022 통화 그래프 </h3>
+      <div>
+        <svg ref={svgRef} width={600} height={400} />
+      </div>
+    </div>
+  );
 };
 
 export default App;
