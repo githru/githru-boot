@@ -1,11 +1,15 @@
-// @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
+interface ChartData {
+  currency: string;
+  values: { date: Date; value: number }[];
+}
+
 const App = () => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [chartData, setChartData] = useState([]);
-  const [allData, setAllData] = useState([]);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [allData, setAllData] = useState<ChartData[]>([]);
 
   const data = `통화,2022-01-31,2022-02-28,2022-03-31,2022-04-29,2022-05-31,2022-06-30,2022-07-29,2022-08-31,2022-09-30,2022-10-31,2022-11-30,2022-12-30
 USD,1202.4,1202.7,1210.8,1269.4,1245.8,1292.9,1304,1347.5,1434.8,1419.3,1331.5,1267.3
@@ -16,7 +20,7 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
 
   useEffect(() => {
     const parseData = d3.csvParse(data);
-    const formatData = parseData.map((d) => ({
+    const formatData: ChartData[] = parseData.map((d) => ({
       currency: d.통화,
       values: Object.keys(d)
         .filter((key) => key !== '통화')
@@ -37,7 +41,7 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
 
     // x축 범위
     const xScale = d3
-      .scalePoint()
+      .scalePoint<number>()
       .domain(chartData[0]?.values.map((d) => d.date.getMonth() + 1))
       .range([0, width]);
 
@@ -46,8 +50,8 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
 
     // 라인 생성
     const line = d3
-      .line()
-      .x((d) => xScale(d.date.getMonth() + 1))
+      .line<{ date: Date; value: number }>()
+      .x((d) => xScale(d.date.getMonth() + 1) as number)
       .y((d) => yScale(d.value));
 
     // svg 초기화
@@ -101,7 +105,7 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
       .attr('d', (d) => line(d.values) as string);
   }, [chartData]);
 
-  const handleButtonClick = (currency) => {
+  const handleButtonClick = (currency: string) => {
     const selectedData = allData.find((d) => d.currency === currency);
     if (selectedData) {
       setChartData([selectedData]);
@@ -122,7 +126,7 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
         <button onClick={() => handleButtonClick('EUR')}>EUR</button>
         <button onClick={() => handleButtonClick('CNH')}>CNH</button>
         <button onClick={() => handleButtonClick('HKD')}>HKD</button>
-        <button onClick={() => handleAllButtonClick('ALL')}>ALL</button>
+        <button onClick={() => handleAllButtonClick()}>ALL</button>
       </div>
     </div>
   );
