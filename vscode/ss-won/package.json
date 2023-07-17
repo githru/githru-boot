@@ -6,9 +6,10 @@
   "scripts": {
     "build": "tsc -b",
     "format": "prettier --ignore-path .gitignore --write",
-    "test:lint": "eslint --debug"
+    "test:lint": "eslint --debug",
+    "test:client": "node ./client/dist/test/runTest.js"
   },
-  "author": "",
+  "author": "Sowon Jung<swj960515@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -21,7 +22,7 @@
     "typescript": "^5.1.6"
   },
   "lint-staged": {
-    "*.{ts,js,md}": [
+    "*.{ts,js}": [
       "npm run format",
       "npm run test:lint"
     ]

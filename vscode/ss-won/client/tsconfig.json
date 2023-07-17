@@ -1,13 +1,16 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "outDir": "dist",
-    "rootDir": ".",
-    "sourceMap": true,
-    "composite": true
-  },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "dist"]
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "ESNext",
+		"outDir": "dist",
+		"lib": [
+			"ESNext"
+		],
+		"sourceMap": true,
+		"rootDir": "src",
+		"strict": true,
+		"composite": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
 }

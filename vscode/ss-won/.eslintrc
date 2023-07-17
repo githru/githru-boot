@@ -5,5 +5,10 @@
   "root": true,
   "parserOptions": {
     "ecmaVersion": "latest"
-  }
+  },
+  "ignorePatterns": [
+    "out",
+    "dist",
+    "**/*.d.ts"
+]
 }
