@@ -41,6 +41,23 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
       .domain(chartData[0]?.values.map((d) => d.date.getMonth() + 1))
       .range([0, width]);
 
+    // y축 범위
+    const yScale = d3.scaleLinear().domain([0, 1500]).range([height, 0]);
+
+    // 라인 생성
+    const line = d3
+      .line()
+      .x((d) => xScale(d.date.getMonth() + 1))
+      .y((d) => yScale(d.value));
+
+    // svg 초기화
+    svg.selectAll('*').remove();
+
+    // svg 요소 생성
+    const chart = svg
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
     // x축 그리기
     chart
       .append('g')
@@ -68,25 +85,8 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
           }),
       );
 
-    // y축 범위
-    const yScale = d3.scaleLinear().domain([0, 1500]).range([height, 0]);
-
     // y축 그리기
     chart.append('g').call(d3.axisLeft(yScale));
-
-    // svg 초기화
-    svg.selectAll('*').remove();
-
-    // svg 요소 생성
-    const chart = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-    // 라인 생성
-    const line = d3
-      .line()
-      .x((d) => xScale(d.date.getMonth() + 1))
-      .y((d) => yScale(d.value));
 
     //라인 그리기
     chart
@@ -98,7 +98,7 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
       .attr('fill', 'none')
       .attr('stroke-width', 2)
       .attr('stroke', 'steelblue')
-      .attr('d', (d) => line(d.value) as string);
+      .attr('d', (d) => line(d.values) as string);
   }, [chartData]);
 
   const handleButtonClick = (currency) => {
