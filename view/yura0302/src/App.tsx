@@ -80,13 +80,25 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
     const chart = svg
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
-  });
 
-  // 라인 생성
-  const line = d3
-    .line()
-    .x((d) => xScale(d.date.getMonth() + 1))
-    .y((d) => yScale(d.value));
+    // 라인 생성
+    const line = d3
+      .line()
+      .x((d) => xScale(d.date.getMonth() + 1))
+      .y((d) => yScale(d.value));
+
+    //라인 그리기
+    chart
+      .selectAll('.line')
+      .data(chartData)
+      .enter()
+      .append('path')
+      .attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke-width', 2)
+      .attr('stroke', 'steelblue')
+      .attr('d', (d) => line(d.value) as string);
+  }, [chartData]);
 
   return (
     <div>
