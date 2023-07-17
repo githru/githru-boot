@@ -1,0 +1,15 @@
+{
+  "name": "githru-vscode-ext-client",
+  "description": "client for githru-vscode-ext",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.1",
+    "@vscode/test-electron": "^2.2.3"
+  }
+}
