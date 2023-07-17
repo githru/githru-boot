@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 const App = () => {
-  const svgRef = useRef(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const [chartData, setChartData] = useState([]);
   const [allData, setAllData] = useState([]);
 
@@ -22,11 +22,12 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
         .filter((key) => key !== '통화')
         .map((key) => ({ date: new Date(key), value: +d[key] })),
     }));
-  });
-  setAllData(formatData);
+    setAllData(formatData);
+  }, []);
 
   useEffect(() => {
     if (chartData.length === 0) return;
+
     const svg = d3.select(svgRef.current);
 
     // 차트 영역, 여백 설정
@@ -100,11 +101,28 @@ HKD,154.35,154.03,154.69,161.78,158.73,164.77,166.12,171.68,182.78,180.83,170.48
       .attr('d', (d) => line(d.value) as string);
   }, [chartData]);
 
+  const handleButtonClick = (currency) => {
+    const selectedData = allData.find((d) => d.currency === currency);
+    if (selectedData) {
+      setChartData([selectedData]);
+    }
+  };
+
+  const handleAllButtonClick = () => {
+    setChartData(allData);
+  };
+
   return (
     <div>
-      <h3>2022 통화 그래프 </h3>
+      <h1>2022 통화 그래프 </h1>
       <div>
         <svg ref={svgRef} width={600} height={400} />
+        <button onClick={() => handleButtonClick('USD')}>USD</button>
+        <button onClick={() => handleButtonClick('JPY')}>JPY</button>
+        <button onClick={() => handleButtonClick('EUR')}>EUR</button>
+        <button onClick={() => handleButtonClick('CNH')}>CNH</button>
+        <button onClick={() => handleButtonClick('HKD')}>HKD</button>
+        <button onClick={() => handleAllButtonClick('ALL')}>ALL</button>
       </div>
     </div>
   );
