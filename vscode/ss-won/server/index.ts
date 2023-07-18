@@ -102,26 +102,20 @@ const checkIsStartWithEmoji = (text: string) => {
 // This handler provides the initial list of the completion items.
 connection.onCompletion((textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
   const textDocument = documents.get(textDocumentPosition.textDocument.uri)?.getText();
-  const { character } = textDocumentPosition.position;
+  const { line } = textDocumentPosition.position;
+  const currentText = textDocument?.split('\n')?.[line]?.toLocaleLowerCase().trim();
+  const labels = ['📌 Notice', '👣 History', '🔥 Hot'];
 
-  return (textDocument && !checkIsStartWithEmoji(textDocument)) || character === 0
-    ? [
-        {
-          label: '📌 Notice',
-          kind: CompletionItemKind.Text,
-          data: 1,
-        },
-        {
-          label: '👣 History',
-          kind: CompletionItemKind.Text,
-          data: 2,
-        },
-        {
-          label: '🔥 Hot',
-          kind: CompletionItemKind.Text,
-          data: 3,
-        },
-      ]
+  // Complete only if the sentence is valid or likely to be valid
+  return currentText &&
+    (currentText.length === 0 ||
+      checkIsStartWithEmoji(currentText) ||
+      labels.some(label => label.toLowerCase().split(' ').at(-1)?.includes(currentText)))
+    ? labels.map((label, index) => ({
+        label,
+        kind: CompletionItemKind.Text,
+        data: index + 1,
+      }))
     : [];
 });
 
