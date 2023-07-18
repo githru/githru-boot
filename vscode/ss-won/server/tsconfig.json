@@ -10,6 +10,6 @@
     "rootDir": ".",
     "composite": true
   },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist", ".vscode-test"]
 }

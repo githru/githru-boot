@@ -1,17 +1,29 @@
 {
-  "name": "server",
+  "name": "emoji-prefix-text-lsp",
   "version": "1.0.0",
-  "description": "lsp server sample",
-  "main": "index.js",
+  "description": "lsp sample",
+  "categories": [],
+  "keywords": [
+    "multi-root ready"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onLanguage:plaintext"
+  ],
+  "main": "./client/dist/extension",
   "scripts": {
     "build": "tsc -b",
+    "watch": "tsc -b -w",
     "format": "prettier --ignore-path .gitignore --write",
-    "test:lint": "eslint --debug",
+    "test:lint": "eslint --fix",
     "test:client": "node ./client/dist/test/runTest.js"
   },
   "author": "Sowon Jung<swj960515@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.4.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",

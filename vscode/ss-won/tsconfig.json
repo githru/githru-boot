@@ -4,8 +4,9 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true,
   },
-  "exclude": ["node_modules"],
-  "references": [{ "path": "./client" }, { "path": "./server" }]
+  "exclude": ["node_modules", "dist", ".vscode-test"],
+  "references": [{ "path": "./server" }, { "path": "./client" }]
 }
