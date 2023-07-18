@@ -18,7 +18,8 @@
     "watch": "tsc -b -w",
     "format": "prettier --ignore-path .gitignore --write",
     "test:lint": "eslint --fix",
-    "test:client": "node ./client/dist/test/runTest.js"
+    "test:client": "node ./client/dist/test/runTest.js",
+    "prepare": "npm i --prefix client && npm i --prefix server"
   },
   "author": "Sowon Jung<swj960515@gmail.com>",
   "license": "ISC",
