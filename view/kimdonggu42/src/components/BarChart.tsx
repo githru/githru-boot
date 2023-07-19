@@ -41,6 +41,19 @@ function BarChart() {
 
     svg.append<SVGGElement>('g').call(xAxis);
     svg.append<SVGGElement>('g').call(yAxis);
+
+    svg
+      .append('g')
+      .selectAll('rect')
+      .data(precipitationData)
+      .enter()
+      .append('rect')
+      .attr('x', (d) => x(d.date) as number)
+      .attr('y', (d) => y(d.precipitation))
+      .attr('width', x.bandwidth())
+      .attr('height', (d) => y(0) - y(d.precipitation))
+      .attr('class', 'bar-chart')
+      .attr('fill', 'steelblue');
   }, []);
 
   return (
