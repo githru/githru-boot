@@ -14,7 +14,6 @@ function LineChart() {
     const width = 1000;
     const height = 400;
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-    const currentElement = divRef.current;
 
     const data = weatherData.map((value) => ({
       date: new Date(value.date),
@@ -38,7 +37,7 @@ function LineChart() {
       .y((d) => y(d.temp));
 
     const svg = d3
-      .select(currentElement)
+      .select(divRef.current)
       .call((g) => g.select('svg').remove())
       .append('svg')
       .attr('viewBox', `0,0,${width},${height}`);
