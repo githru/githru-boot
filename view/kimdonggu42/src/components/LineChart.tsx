@@ -21,16 +21,15 @@ function LineChart() {
       temp: value.temp,
     }));
 
-    const x = d3.scaleUtc(d3.extent(data, (d) => d.date) as [Date, Date], [
-      margin.left,
-      width - margin.right,
-    ]);
+    const x = d3
+      .scaleUtc()
+      .domain(d3.extent(data, (d) => d.date) as [Date, Date])
+      .range([margin.left, width - margin.right]);
 
     const y = d3
-      .scaleLinear([d3.min(data, (d) => d.temp), d3.max(data, (d) => d.temp)] as [number, number], [
-        height - margin.bottom,
-        margin.top,
-      ])
+      .scaleLinear()
+      .domain([d3.min(data, (d) => d.temp), d3.max(data, (d) => d.temp)] as [number, number])
+      .range([height - margin.bottom, margin.top])
       .nice();
 
     const line = d3
