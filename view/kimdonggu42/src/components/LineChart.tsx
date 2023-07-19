@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { tempData } from '../data/weatherData';
+import { tempData } from '../data/tempData';
 
 interface ConverDateInterface {
   date: Date;
