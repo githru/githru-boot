@@ -6,6 +6,5 @@ const BarChart = () =>{
         <div></div>
     )
 }
-//SCCVN35GUQ2R0A4O.
 
 export default BarChart;
