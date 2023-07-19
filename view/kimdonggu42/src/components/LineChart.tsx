@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { weatherData } from '../data/weatherData';
+import { tempData } from '../data/weatherData';
 
-interface DateInterface {
+interface ConverDateInterface {
   date: Date;
   temp: number;
 }
@@ -15,7 +15,7 @@ function LineChart() {
     const height = 400;
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
-    const data = weatherData.map((value) => ({
+    const data = tempData.map((value) => ({
       date: new Date(value.date),
       temp: value.temp,
     }));
@@ -32,7 +32,7 @@ function LineChart() {
       .nice();
 
     const line = d3
-      .line<DateInterface>()
+      .line<ConverDateInterface>()
       .x((d) => x(d.date))
       .y((d) => y(d.temp));
 
