@@ -1,4 +1,4 @@
-import { BarsProps } from "../types/bar";
+import { BarsProps } from "../../types/bar";
 
 const Bars = ({ data, height, scaleX, scaleY }: BarsProps) => {
     return (

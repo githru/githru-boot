@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { select, axisLeft } from "d3";
-import { AxisLeftProps } from "../types/bar";
+import { AxisLeftProps } from "../../types/bar";
 
 const AxisLeft = ({ scale }: AxisLeftProps) => {
     const ref = useRef<SVGGElement>(null);

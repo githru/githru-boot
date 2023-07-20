@@ -1,6 +1,6 @@
 import { select, axisBottom } from "d3";
 import { useEffect, useRef } from "react";
-import { AxisBottomProps } from "../types/bar";
+import { AxisBottomProps } from "../../types/bar";
 
 const AxisBottom = ({ scale, transform }: AxisBottomProps) => {
     const ref = useRef<SVGGElement>(null);
