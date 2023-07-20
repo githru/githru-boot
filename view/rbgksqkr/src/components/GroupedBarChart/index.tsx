@@ -1,4 +1,6 @@
 import { IGroupedData } from "../../types/bar";
+import AxisBottom from "./AxisBottom";
+import { scaleBand } from "d3";
 
 interface Props {
     data: IGroupedData[];
@@ -9,6 +11,10 @@ const GroupedBarChart = ({ data }: Props) => {
     const width = 500 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
+    const scaleX = scaleBand()
+        .domain(data.map(({ label }) => label))
+        .range([0, width]);
+
     return (
         <div>
             <h1>Grouped Bar Chart</h1>
@@ -17,6 +23,10 @@ const GroupedBarChart = ({ data }: Props) => {
                 height={height + margin.top + margin.bottom}
             >
                 <g transform={`translate(${margin.left}, ${margin.top})`}></g>
+                <AxisBottom
+                    scale={scaleX}
+                    transform={`translate(0, ${height})`}
+                />
             </svg>
         </div>
     );
