@@ -72,22 +72,28 @@ const LineGraph = (props: WeatherLineProps) => {
     };
   }, [x, y, height, marginBottom, marginLeft]);
 
-  const line: d3.Line<{ date: Date; average: number }> = d3.line(
-    (d: weatherData) => x(d.date),
-    (d: weatherData) => y(d.average)
-  );
+  useEffect(() => {
+    const svg = d3.select(".svg");
+    const line: d3.Line<{ date: Date; average: number }> = d3.line(
+      (d: weatherData) => x(d.date),
+      (d: weatherData) => y(d.average)
+    );
+    svg
+      .append("path")
+      .attr("fill", "none")
+      .attr("stroke", "currentColor")
+      .attr("strokeWidth", "1.5")
+      .attr("d", line(shownData))
+      .attr("class", "line");
 
-  const d = line(shownData);
+    return () => {
+      svg.select(".line").remove();
+    };
+  }, [shownData, x, y]);
   return (
     <>
       <h1>2022년 평균 기온 그래프</h1>
-      <svg className="svg" width={width} height={height}>
-        {d ? (
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" d={d} />
-        ) : (
-          <h1>데이터를 선택해 주세요</h1>
-        )}
-      </svg>
+      <svg className="svg" width={width} height={height}></svg>
       <div>
         <button name="seoulData" onClick={handleButtonClick}>
           서울
