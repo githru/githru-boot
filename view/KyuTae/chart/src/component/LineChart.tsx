@@ -22,6 +22,7 @@ const LineChart: React.FC = () => {
       .scaleTime()
       .domain(d3.extent(new_SamSung_data, (d) => d.date) as [Date, Date])
       .range([marginLeft, width - marginRight]);
+    
     const y: d3.ScaleLinear<number, number> = d3
       .scaleLinear()
       .domain([0, d3.max(new_SamSung_data, (d) => d.price) as number])
@@ -68,7 +69,6 @@ const LineChart: React.FC = () => {
       ref={svgRef}
       width={width}
       height={height}
-      style={{ maxWidth: "100%", height: "auto" }}
     />
   );
 };
