@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import LineChart from './component/LineChart'
 import BarChart from './component/BarChart'
 import "./App.css"
