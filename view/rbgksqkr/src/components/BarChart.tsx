@@ -12,7 +12,8 @@ const BarChart = ({ data }: BarChartProps) => {
 
     const scaleX = scaleBand()
         .domain(data.map(({ label }) => label))
-        .range([0, width]);
+        .range([0, width])
+        .padding(0.5);
 
     const scaleY = scaleLinear()
         .domain([0, Math.max(...data.map(({ value }) => value))])
