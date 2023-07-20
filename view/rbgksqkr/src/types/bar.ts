@@ -1,5 +1,4 @@
 import { ScaleBand, ScaleLinear } from "d3";
-
 export interface BarChartProps {
     data: Data[];
 }
@@ -23,6 +22,14 @@ export interface BarsProps {
     height: number;
     scaleX: AxisBottomProps["scale"];
     scaleY: AxisLeftProps["scale"];
+}
+
+export interface BarProps {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    color: string;
 }
 
 export interface IGroupedData {
