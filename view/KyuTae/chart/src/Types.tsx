@@ -1,3 +1,4 @@
-export interface Time_Series {
-    [key: string]: any
+export interface DataPoint {
+    date: Date;
+    price: number;
 }
