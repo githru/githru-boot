@@ -44,7 +44,7 @@ export function activate(context: ExtensionContext) {
   // Create the language client and start the client.
   client = new LanguageClient(
     "languageServerExample",
-    "Language Server Example",
+    "Syoung125 Language Server Example",
     serverOptions,
     clientOptions
   );
