@@ -20,45 +20,43 @@ const WeatherLine: React.FC<WeatherLineProps> = ({
   marginBottom,
   marginLeft,
 }) => {
-  const gx = useRef(null);
-  const gy = useRef(null);
+  const svgRef = useRef(null);
+  let [minDate, maxDate] = d3.extent(data, (d) => d.date);
+  let [minValue, maxValue] = d3.extent(data, (d) => d.average);
 
-  const x = d3.scaleUtc(
-    d3.extent(data, (d) => d.date),
-    [marginLeft, width - marginRight]
-  );
-
-  console.log(data);
+  minDate = minDate ?? new Date("2022-01-01");
+  maxDate = maxDate ?? new Date("2022-12-31");
+  minValue = minValue ?? -30;
+  maxValue = maxValue ?? 50;
+  const x = d3.scaleUtc([minDate, maxDate], [marginLeft, width - marginRight]);
   const y = d3.scaleLinear(
-    d3.extent(data, (d) => d.average),
+    [minValue, maxValue],
     [height - marginBottom, marginTop]
   );
-
-  console.log(d3.extent(data, (d) => d.date));
-  const line = d3
-    .line()
-    .x((d) => x(d.date))
-    .y((d) => y(d.average));
-
-  useEffect(() => {
-    d3.select(gx.current).call(d3.axisBottom(x));
-  }, [gx, x]);
-  useEffect(() => {
-    d3.select(gy.current).call(d3.axisLeft(y));
-  }, [gy, y]);
-
-  return (
-    <svg width={width} height={height}>
-      <g ref={gx} transform={`translate(0,${height - marginBottom})`} />
-      <g ref={gy} transform={`translate(${marginLeft},0)`} />
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        d={line(data)}
-      />
-    </svg>
+  const line: d3.Line<{ date: Date; average: number }> = d3.line(
+    (d) => x(d.date),
+    (d) => y(d.average)
   );
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height - marginBottom})`)
+      .call(d3.axisBottom(x));
+    svg
+      .append("g")
+      .attr("transform", `translate(${marginLeft}, 0)`)
+      .call(d3.axisLeft(y));
+  }, [x, y, height, marginBottom, marginLeft]);
+
+  const d = line(data);
+  if (d !== null) {
+    return (
+      <svg ref={svgRef} width={width} height={height}>
+        <path fill="none" stroke="currentColor" strokeWidth="1.5" d={d} />
+      </svg>
+    );
+  } else return <h1></h1>;
 };
 
 export default WeatherLine;
