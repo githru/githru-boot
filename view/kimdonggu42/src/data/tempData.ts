@@ -1,10 +1,10 @@
-interface WeatherDataInterface {
+interface TempDataInterface {
   date: string;
   temp: number;
 }
 
 // 2022.07.14 ~ 2023.07.13까지 1년간 서울시 평균기온 데이터
-export const weatherData: WeatherDataInterface[] = [
+export const tempData: TempDataInterface[] = [
   { date: '2022-07-14', temp: 25.7 },
   { date: '2022-07-15', temp: 26 },
   { date: '2022-07-16', temp: 24.8 },
