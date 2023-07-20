@@ -24,3 +24,8 @@ export interface BarsProps {
     scaleX: AxisBottomProps["scale"];
     scaleY: AxisLeftProps["scale"];
 }
+
+export interface IGroupedData {
+    label: string;
+    values: number[];
+}

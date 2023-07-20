@@ -1,4 +1,4 @@
-import { Data } from "./types/bar";
+import { Data, IGroupedData } from "./types/bar";
 
 export const lineData = [
     { d: "2007-04-23", v: 93.24 },
@@ -1288,4 +1288,10 @@ export const barData: Data[] = [
     { label: "Bananas", value: 200 },
     { label: "Oranges", value: 50 },
     { label: "Kiwis", value: 150 },
+];
+
+export const groupedBarData: IGroupedData[] = [
+    { label: "Apples", values: [60, 80, 100] },
+    { label: "Bananas", values: [160, 200, 120] },
+    { label: "Oranges", values: [60, 40, 10] },
 ];
