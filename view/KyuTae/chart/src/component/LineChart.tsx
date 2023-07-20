@@ -2,8 +2,10 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { SamSung_data } from "../data/StockData";
 import { DataPoint } from "../Types";
-
-const LineChart: React.FC = () => {
+interface Props {
+  classType: string;
+}
+const LineChart: React.FC<Props> = ({ classType }) => {
   const width: number = 928;
   const height: number = 500;
   const marginTop: number = 20;
@@ -46,8 +48,7 @@ const LineChart: React.FC = () => {
     LineSvg
       .append("g")
       .attr("transform", `translate(${marginLeft}, 0)`)
-      .call(d3.axisLeft(y).ticks(height / 40))
-      .call((g) => g.select(".domain").remove())
+      .call(d3.axisLeft(y).ticks(height / 80))
       .call((g) =>
         g
           .selectAll(".tick line")
@@ -66,6 +67,7 @@ const LineChart: React.FC = () => {
 
   return (
     <svg
+      className={classType}
       ref={svgRef}
       width={width}
       height={height}

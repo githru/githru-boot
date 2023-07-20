@@ -2,14 +2,18 @@ import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 import { SamSung_data } from "../data/StockData";
 
-const width: number = 928;
-const height: number = 500;
-const marginTop: number = 20;
-const marginRight: number = 30;
-const marginBottom: number = 50;
-const marginLeft: number = 50;
 
-const BarChart: React.FC = () => {
+interface Props {
+  classType: string;
+}
+
+const BarChart: React.FC<Props> = ({classType}) => {
+  const width: number = 928;
+  const height: number = 500;
+  const marginTop: number = 20;
+  const marginRight: number = 30;
+  const marginBottom: number = 50;
+  const marginLeft: number = 50;
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const BarChart: React.FC = () => {
       date: new Date(ele.date).toISOString().slice(5,10),
       price: ele.price,
     }));
-    console.log(new_SamSung_data)
+
     const xScale: d3.ScaleBand<string> = d3
       .scaleBand()
       .domain(new_SamSung_data.map((d) => d.date))
@@ -58,6 +62,7 @@ const BarChart: React.FC = () => {
 
   return (
     <svg
+    className={classType}
       ref={svgRef}
       width={width}
       height={height}
