@@ -1,0 +1,29 @@
+{
+  "강도": [
+    { "time": "새벽", "value": 15306 },
+    { "time": "아침", "value": 13206 },
+    { "time": "낮", "value": 90967 },
+    { "time": "오전", "value": 30190 },
+    { "time": "오후", "value": 60777 },
+    { "time": "저녁", "value": 27087 },
+    { "time": "밤", "value": 81473 }
+  ],
+  "살인": [
+    { "time": "새벽", "value": 109 },
+    { "time": "아침", "value": 57 },
+    { "time": "낮", "value": 330 },
+    { "time": "오전", "value": 115 },
+    { "time": "오후", "value": 215 },
+    { "time": "저녁", "value": 127 },
+    { "time": "밤", "value": 448 }
+  ],
+  "절도": [
+    { "time": "새벽", "value": 581 },
+    { "time": "아침", "value": 144 },
+    { "time": "낮", "value": 833 },
+    { "time": "오전", "value": 237 },
+    { "time": "오후", "value": 596 },
+    { "time": "저녁", "value": 241 },
+    { "time": "밤", "value": 1665 }
+  ]
+}
