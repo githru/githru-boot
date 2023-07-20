@@ -6,7 +6,6 @@ import {
   axisBottom,
   axisLeft,
   scaleTime,
-  max,
 } from "d3";
 import { useRef, useEffect, useState } from "react";
 import { data1, data2, data3 } from "./data";
@@ -62,7 +61,7 @@ const LinePlot = ({
       : [new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), new Date()];
     const xScale = scaleTime().domain(xDomain).range([0, innerWidth]);
 
-    const yExtent = [0, max(data, (d) => d.close) as number];
+    const yExtent = extent(data, (d) => d.close) as number[];
     const yDomain = yExtent[1] ? yExtent : [0, 3000];
     const yScale = scaleLinear().domain(yDomain).range([innerHeight, 0]);
 
