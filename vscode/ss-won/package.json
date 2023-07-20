@@ -19,7 +19,7 @@
     "format": "prettier --ignore-path .gitignore --write",
     "test:lint": "eslint --fix",
     "test:client": "node ./client/dist/test/runTest.js",
-    "prepare": "npm i --prefix client && npm i --prefix server"
+    "clean": "npm run clean --workspaces"
   },
   "author": "Sowon Jung<swj960515@gmail.com>",
   "license": "ISC",
@@ -39,5 +39,9 @@
       "npm run format",
       "npm run test:lint"
     ]
-  }
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ]
 }

@@ -22,3 +22,31 @@
 - 코딩하면서 혼잣말 많이 합니다.
 - 오픈소스 컨트리뷰톤 2회차 입니다. (2020년에 TypeScript Handbook 번역으로 Microsoft repo에 기여했습니다.)
 - 낯가리는데 친해지면 투머치토커입니다.
+
+## Project 소개
+
+- [lsp-example](https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample)을 기반
+- emoji로 시작하지 않는 line은 syntax에러가 발생하도록 만든 emoji-prefix-extension 입니다.
+- 주요기능
+  - validation check를 위한 diagnostics
+  - 미리 만들어 둔 이모지와 단어 조합을 제공하는 completion provider
+    > **INFO**
+    >
+    > completion provider는 이미 에러가 발생했고 completion provider에 적합한 text가 없는 문장에서는 동작하지 않도록 만들었습니다.
+
+### get started
+
+```node
+// run lsp extension
+code vscode/ss-won // or vscode로 githru/vscode/ss-won open
+npm i
+Ctrl(Cmd) + Shift + B -> build // 혹시 에러가 발생하면 npm run clean 한번 돌려주시고 다시 시도하세요~
+Run Tab 이동 후 Launcher Client Run -> run
+Extension Development Host 창에서 root 경로에 txt 파일을 만들고 text를 입력하면 동작합니다.
+
+// build
+npm run clean && npm run build
+
+// test
+npm run test:client
+```
