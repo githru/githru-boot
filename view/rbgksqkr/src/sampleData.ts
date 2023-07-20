@@ -1280,3 +1280,14 @@ export const lineData = [
     { d: "2012-04-29", v: 583.98 },
     { d: "2012-05-01", v: 582.13 },
 ];
+export interface Data {
+    label: string;
+    value: number;
+}
+
+export const barData: Data[] = [
+    { label: "Apples", value: 100 },
+    { label: "Bananas", value: 200 },
+    { label: "Oranges", value: 50 },
+    { label: "Kiwis", value: 150 },
+];
