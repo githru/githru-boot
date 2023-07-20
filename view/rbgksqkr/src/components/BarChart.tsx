@@ -1,12 +1,7 @@
-import React from "react";
-import { Data } from "../sampleData";
 import { scaleBand, scaleLinear } from "d3";
 import AxisBottom from "./AxisBottom";
 import AxisLeft from "./AxisLeft";
-
-interface BarChartProps {
-    data: Data[];
-}
+import { BarChartProps } from "../types/bar";
 
 const BarChart = ({ data }: BarChartProps) => {
     const margin = { top: 10, right: 0, bottom: 20, left: 40 };
