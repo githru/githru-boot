@@ -1,6 +1,8 @@
+import React from "react";
 import { scaleBand, scaleLinear } from "d3";
 import AxisBottom from "./AxisBottom";
 import AxisLeft from "./AxisLeft";
+import Bars from "./Bars";
 import { BarChartProps } from "../types/bar";
 
 const BarChart = ({ data }: BarChartProps) => {
@@ -29,6 +31,12 @@ const BarChart = ({ data }: BarChartProps) => {
                         transform={`translate(0, ${height})`}
                     />
                     <AxisLeft scale={scaleY} />
+                    <Bars
+                        data={data}
+                        height={height}
+                        scaleX={scaleX}
+                        scaleY={scaleY}
+                    />
                 </g>
             </svg>
         </div>
