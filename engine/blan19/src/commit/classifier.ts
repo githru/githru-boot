@@ -2,7 +2,7 @@ import { CommitKeywordMapper } from "./mapper/commitKeywordMapper";
 
 export const classifierOfKeyword = (message: string) => {
   for (const key in CommitKeywordMapper) {
-    const keyword = new RegExp(`${key}`, "i").exec(message);
+    const keyword = new RegExp(key, "i").exec(message);
 
     if (!keyword?.length) continue;
 
