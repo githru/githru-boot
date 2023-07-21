@@ -1,66 +1,53 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./App";
 import * as d3 from "d3";
-import WeatherLine from "./Graph/WeatherLine";
+import { totalData } from "./types/totalData";
+import LineGraph from "./Graph/LineGraph";
 
 function App() {
-  const [showData, setShowData] = useState({ showJeju: false });
-  const [jejuData, setJejuData] = useState<{ date: Date; average: number }[]>(
-    []
-  );
-  const width = useMemo(() => 640, []);
-  const height = useMemo(() => 400, []);
-  const marginTop = useMemo(() => 20, []);
-  const marginRight = useMemo(() => 20, []);
-  const marginBottom = useMemo(() => 30, []);
-  const marginLeft = useMemo(() => 40, []);
+  const [data, setData] = useState<totalData>({
+    jejuData: [],
+    seoulData: [],
+    daejeonData: [],
+    gwangjuData: [],
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const csv = await d3.csv("/weather.csv", (row) => {
-          if (row.date && row.average)
-            return { date: new Date(row.date), average: +row.average };
-          else return { date: new Date(), average: 0 };
-        });
-        setJejuData(csv);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    void getData();
+  const width = 640;
+  const height = 400;
+  const marginTop = 20;
+  const marginRight = 20;
+  const marginBottom = 30;
+  const marginLeft = 40;
+
+  const fetchData = useCallback(async () => {
+    const jejuData = await d3.csv("/jejuWeather.csv", (row) => {
+      if (row.date && row.average)
+        return { date: new Date(row.date), average: +row.average };
+    });
+    const seoulData = await d3.csv("/seoulWeather.csv", (row) => {
+      if (row.date && row.average)
+        return { date: new Date(row.date), average: +row.average };
+    });
+    const daejeonData = await d3.csv("/daejeonWeather.csv", (row) => {
+      if (row.date && row.average)
+        return { date: new Date(row.date), average: +row.average };
+    });
+    const gwangjuData = await d3.csv("/gwangjuWeather.csv", (row) => {
+      if (row.date && row.average)
+        return { date: new Date(row.date), average: +row.average };
+    });
+    setData({ jejuData, seoulData, daejeonData, gwangjuData });
   }, []);
 
-  const handleButtonClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const { name } = event.target as HTMLButtonElement;
-      setShowData((state) => {
-        const newState = state;
-        let key: keyof typeof newState;
-        for (key in newState) {
-          newState[key] = false;
-        }
-        newState[name as keyof typeof newState] = true;
-        return newState;
-      });
-    },
-    []
-  );
+  useEffect(() => {
+    void fetchData();
+  }, [fetchData]);
 
   return (
     <>
-      <button className="showJeju" onClick={handleButtonClick}>
-        제주
-      </button>
-      {jejuData && (
-        <WeatherLine
-          data={jejuData}
+      {data && (
+        <LineGraph
+          data={data}
           width={width}
           height={height}
           marginTop={marginTop}
