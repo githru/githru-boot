@@ -33,7 +33,7 @@ export const registerCommands = () => {
   let clipboardList: Clipboard[] = [];
 
   const config = vscode.workspace.getConfiguration("clipboard");
-  let maximumClips = config.get("maximumClips", 200);
+  const maximumClips = config.get("maximumClips", 200);
 
   const createTreeView = async () => {
     vscode.window.createTreeView("clipboard.history", {
@@ -50,13 +50,14 @@ export const registerCommands = () => {
       TreeItemCollapsibleState.None
     );
 
-    if (clipboardList.find((c) => c.label === copied)) {
-      clipboardList = clipboardList.filter((c) => c.label !== copied);
+    const index = clipboardList.findIndex(({ label }) => label === copied);
+    if (index > -1) {
+      clipboardList.splice(index, 1);
     }
-
     clipboardList.push(item);
+
     if (maximumClips > 0) {
-      clipboardList = clipboardList.reverse().slice(0, maximumClips).reverse();
+      clipboardList = clipboardList.slice(-maximumClips);
     }
   };
 
