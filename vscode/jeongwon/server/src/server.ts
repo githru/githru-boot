@@ -41,7 +41,6 @@ connection.onInitialize((params: InitializeParams) => {
   const result: InitializeResult = {
     capabilities: {
       textDocumentSync: TextDocumentSyncKind.Incremental,
-      // Tell the client that this server supports code completion.
       completionProvider: {
         resolveProvider: true,
       },
@@ -71,10 +70,6 @@ connection.onInitialized(() => {
       connection.console.log("Workspace folder change event received.");
     });
   }
-});
-
-connection.onDidChangeWatchedFiles(_change => {
-  connection.console.log("🚀 onChangeFiles 🚀");
 });
 
 connection.listen();
