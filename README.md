@@ -24,7 +24,7 @@ Welcome to githru-boot
 
 #### ENGINE
 1. Keyword를 이용한 commit 분류 구분 모듈
-1. author별 PR, Review 통계 수집 모듈: Octopus API(https://github.com/topics/octopus-api)를 활용
+1. author별 PR, Review 통계 수집 모듈: Octopus API(https://github.com/topics/octopus-api) 활용
 
 #### VIEW
 - Line Chart, Bar chart
