@@ -1,0 +1,47 @@
+{
+  "name": "emoji-prefix-text-lsp",
+  "version": "1.0.0",
+  "description": "lsp sample",
+  "categories": [],
+  "keywords": [
+    "multi-root ready"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onLanguage:plaintext"
+  ],
+  "main": "./client/dist/extension",
+  "scripts": {
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "format": "prettier --ignore-path .gitignore --write",
+    "test:lint": "eslint --fix",
+    "test:client": "node ./client/dist/test/runTest.js",
+    "clean": "npm run clean --workspaces"
+  },
+  "author": "Sowon Jung<swj960515@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run format",
+      "npm run test:lint"
+    ]
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}

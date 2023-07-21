@@ -1,0 +1,22 @@
+{
+  "name": "lsp-client",
+  "description": "lsp-client for VSCode extension",
+  "author": "Sowon Jung<swj960515@gmail.com",
+  "version": "0.0.1",
+  "license": "ISC",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/vscode": "^1.75.1",
+    "@vscode/test-electron": "^2.2.3"
+  },
+  "scripts": {
+    "clean": "rm -rf dist tsconfig.tsbuildinfo"
+  }
+}
