@@ -1,7 +1,7 @@
 import { analyzeAuthorStatistics } from './statistics';
 import { RepoURL, AuthorStatistics } from './types';
 
-async function testCollectAuthorStatistics(repoURL: RepoURL): Promise<void> {
+export async function testCollectAuthorStatistics(repoURL: RepoURL): Promise<void> {
   try {
     console.log('Repository:', repoURL);
     const authorStatistics: AuthorStatistics[] = await analyzeAuthorStatistics(repoURL);
@@ -16,9 +16,3 @@ async function testCollectAuthorStatistics(repoURL: RepoURL): Promise<void> {
   }
 }
 
-const repoURL: RepoURL = {
-    owner: "githru",
-    repo: "githru-boot",
-};
-
-testCollectAuthorStatistics(repoURL);
