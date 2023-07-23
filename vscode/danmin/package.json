@@ -1,0 +1,147 @@
+{
+  "name": "clipboard",
+  "displayName": "danmin",
+  "description": "clipboard",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:clipboard.copy",
+    "onCommand:clipboard.cut",
+    "onCommand:clipboard.pasteFromClipboard",
+    "onView:clipboard.history"
+  ],
+  "keywords": [
+    "clipboard",
+    "copy",
+    "cut",
+    "paste",
+    "history"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "clipboard-history",
+          "title": "Clipboard History",
+          "icon": "resources/clipboard-icon.png"
+        }
+      ]
+    },
+    "views": {
+      "clipboard-history": [
+        {
+          "id": "clipboard.history",
+          "name": "Clipboard History"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "clipboard.history.remove",
+          "when": "false"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "clipboard.history.copy",
+          "when": "viewItem =~ /^clipHistoryItem:/",
+          "group": "inline"
+        },
+        {
+          "command": "clipboard.history.remove",
+          "when": "viewItem =~ /^clipHistoryItem:/",
+          "group": "inline"
+        },
+        {
+          "command": "clipboard.history.remove",
+          "when": "viewItem =~ /^clipHistoryItem:/",
+          "group": "1_modification"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "clipboard.copy",
+        "title": "copy lsh.clipboard"
+      },
+      {
+        "command": "clipboard.cut",
+        "title": "cut lsh.clipboard"
+      },
+      {
+        "command": "clipboard.paste",
+        "title": "paste lsh.clipboard"
+      },
+      {
+        "command": "clipboard.history.copy",
+        "title": "Copy",
+        "icon": {
+          "dark": "resources/dark/copy.png",
+          "light": "resources/light/copy.png"
+        }
+      },
+      {
+        "command": "clipboard.history.remove",
+        "title": "Remove",
+        "icon": {
+          "dark": "resources/dark/remove.svg",
+          "light": "resources/light/remove.svg"
+        }
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "clipboard.copy",
+        "key": "ctrl+c",
+        "mac": "cmd+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "clipboard.cut",
+        "key": "ctrl+x",
+        "mac": "cmd+x",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "clipboard.pasteFromClipboard",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Clipboard",
+        "properties": {
+          "clipboard.maximumClips": {
+            "type": "integer",
+            "default": 200,
+            "description": "Maximum number of clips to save"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "@vscode/test-electron": "^2.3.2",
+    "eslint": "^8.41.0",
+    "typescript": "^5.1.3"
+  }
+}
