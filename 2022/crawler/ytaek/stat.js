@@ -20,7 +20,7 @@ const printLog = (user, category, date, url, message) => {
 
 const getAllPRList = async () => {
     const prs = [];
-    const res = await axios.get(`https://api.github.com/repos/${repo}/pulls?state=all&per_page=1000`, headers);
+    const res = await axios.get(`https://api.github.com/repos/${repo}/pulls?state=all&per_page=100`, headers);
     
     res.data.forEach(pr => {
         prs.push(pr.number);
@@ -31,7 +31,7 @@ const getAllPRList = async () => {
 
 const getAllIssueList = async () => {
     const issues = [];
-    const res = await axios.get(`https://api.github.com/repos/${repo}/issues?state=all&per_page=1000`, headers);
+    const res = await axios.get(`https://api.github.com/repos/${repo}/issues?state=all&per_page=1000&page=2`, headers);
 // console.log(res.data);
     res.data
         .filter(data => data.pull_request === undefined)
@@ -47,34 +47,48 @@ const printByAuthor = async (url, category, dateName = 'created_at', bodyName="b
     const res = await axios.get(url, headers);
 // console.log(res.data);
     const dataList = [].concat(res.data);
+    // console.log(dataList);
     dataList.forEach(data => {
         printLog(data.user.login, category, data[dateName], data.html_url ?? url, data[bodyName].replace(/\r?\n|\r/g, ""));
     });
 }
 
+const printCommitByAuthor = async (url, category, dateName = 'created_at') => {
+    const res = await axios.get(url, headers);
+    const dataList = [].concat(res.data);
+    dataList.forEach(data => {
+        // console.log(data);
+        printLog(data.commit.author.name, category, data.commit.author.date, data.html_url ?? url, data.commit.message.replace(/\r?\n|\r/g, ""));
+    });
+}
+
 const prs = [
-    180, 176, 173, 171, 163, 162, 161, 160, 159, 158, 157, 156,
-    155, 154, 153, 152, 151, 150, 143, 142, 141, 140, 139, 137,
-    136, 135, 134, 133, 132, 131, 130, 129, 127, 122, 121, 120,
-    118, 115, 114, 112, 111, 109, 108, 107, 106, 105, 103, 101,
-    100,  98,  97,  96,  95,  94,  93,  92,  91,  89,  88,  87,
-     86,  83,  82,  81,  80,  76,  75,  74,  73,  72,  67,  66,
-     63,  62,  61,  59,  54,  53,  52,  51,  50,  49,  48,  47,
-     46,  45,  44,  43,  42,  41,  39,  38,  36,  35,  34,  33,
-     30,  26,  20,  19
+    510, 509, 508, 506, 505, 504, 503, 502, 501, 500, 495,
+  494, 493, 491, 490, 489, 487, 486, 485, 481, 478, 477,
+  476, 475, 474, 473, 472, 471, 470, 469, 468, 467, 466,
+  455, 454, 453, 450, 449, 448, 446, 444, 442, 441, 440,
+  438, 437, 436, 434, 433, 431, 430, 429, 428, 425, 416,
+  415, 412, 410, 409, 408, 407, 406, 404, 403, 398, 397,
+  396, 395, 394, 391, 390, 389, 388, 387, 386, 384, 383,
+  382, 381, 380, 378, 377, 374, 371, 369, 367
   ];
 const issues = [
-    179, 178, 177, 175, 174, 172, 170,
-    169, 168, 167, 166, 165, 164, 149,
-    148, 147, 146, 145, 144, 138, 128,
-    126, 125, 124, 123, 119, 117, 116,
-    113, 110, 104, 102,  90,  85,  84
+    507, 499, 498, 497, 496, 492, 488,
+  484, 483, 482, 480, 479, 465, 464,
+  463, 462, 461, 460, 459, 458, 457,
+  456, 452, 451, 447, 445, 443, 439,
+  435, 432, 427, 426, 424, 423, 422,
+  421, 420, 419, 418, 417, 414, 413,
+  411, 405, 402, 401, 400, 399, 393, 392, 385,
+  379, 376, 375, 373, 372, 370, 368, 366,
+  365, 364, 363, 362, 361, 360, 359, 358,
+  357,
   ];
 
 console.log(headerColumns.join("\t"));
   
 const main = async () => {
-    //const prs = await getAllPRList();
+    // const prs = await getAllPRList();
     // for (const prId of prs) {
     //     let url = `https://api.github.com/repos/${repo}/pulls/${prId}`;
     //     await printByAuthor(url, "pull_request", "created_at", "title");
@@ -95,27 +109,33 @@ const main = async () => {
     //     await printByAuthor(url, "pull_request_review", "submitted_at");
     // };
 
-    // //////////////////////////////////////
-    // // ISSUE 
+    // for (const prId of prs) {
+    //     let url = `https://api.github.com/repos/${repo}/pulls/${prId}/commits`;
+    //     await printCommitByAuthor(url, "commit", "sha");
+    // };
+
+
+    //////////////////////////////////////
+    // ISSUE 
     // const issues = await getAllIssueList();    
 
-    // for (const issueId of issues) {
-    //     let url = `https://api.github.com/repos/${repo}/issues/${issueId}`;
-    //     await printByAuthor(url, "issue", "created_at", "title");
-    // };
+    for (const issueId of issues) {
+        let url = `https://api.github.com/repos/${repo}/issues/${issueId}`;
+        await printByAuthor(url, "issue", "created_at", "title");
+    };
 
-    // for (const issueId of issues) {
-    //     let url = `https://api.github.com/repos/${repo}/issues/${issueId}/comments`;
-    //     await printByAuthor(url, "issue_comment");
-    // };
+    for (const issueId of issues) {
+        let url = `https://api.github.com/repos/${repo}/issues/${issueId}/comments`;
+        await printByAuthor(url, "issue_comment");
+    };
 
-    ////////////////////////////////////
+    // ////////////////////////////////
     // reactions
-    const issueAndPrs = prs.concat(issues);
-    for (const id of issueAndPrs) {
-        let url = `https://api.github.com/repos/${repo}/issues/${id}/reactions`;
-        await printByAuthor(url, "reactions", "created_at", "content");
-    }
+    // const issueAndPrs = prs.concat(issues);
+    // for (const id of issueAndPrs) {
+    //     let url = `https://api.github.com/repos/${repo}/issues/${id}/reactions`;
+    //     await printByAuthor(url, "reactions", "created_at", "content");
+    // }
 
     fs.appendFile(fileName, printStrs.join("\n") + "\n", 'utf8', function(err) {});
 };
