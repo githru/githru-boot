@@ -15,6 +15,7 @@ Welcome to githru-boot
 
 ### Ground Rules (대부분 githru-vscode-ext와 동일)
 - 개인 Repo로 Fork한 뒤, PR 생성
+- **PR은 리뷰의 편의를 위해 가급적 쪼개러 잘게잘게 올려주세요**
 - 2명 이상 리뷰어의 승인
 - Main 이외의 브랜치 생성 금지
 
