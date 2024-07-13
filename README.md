@@ -19,13 +19,10 @@ Welcome to githru-boot
 - Main 이외의 브랜치 생성 금지
 
 ### FEATURES
-#### VSCODE
-- LSP(Language Server Protocol)로 간단한 API 호출 뼈대 생성
-
 #### ENGINE
-1. Keyword를 이용한 commit 분류 구분 모듈
+1. 생성형 AI를 이용하여, commit 10개를 3줄로 요약해보기
 1. author별 PR, Review 통계 수집 모듈: Octopus API(https://github.com/topics/octopus-api) 활용
 
 #### VIEW
-- Line Chart, Bar chart
-- 데이터는 자율적으로 선택 가능
+1. Line Chart, Bar chart
+1. 데이터는 자율적으로 선택 가능 (날씨, 주식? 등등 공공데이터 json/csv활용 추천)
