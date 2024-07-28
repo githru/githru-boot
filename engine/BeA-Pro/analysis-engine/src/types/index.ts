@@ -4,3 +4,4 @@ export * from "./CommitRaw";
 export * from "./CSM";
 export * from "./Github";
 export * from "./Stem";
+export * from "./CommitPrompt";
