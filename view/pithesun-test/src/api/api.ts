@@ -26,10 +26,7 @@ interface IBeachrResponse {
 }
 
 export async function getData(params: IBeachRequestParam) {
-  console.log(`${process.env.BEACH_API_END_POINT}/getUltraSrtFcstBeach`);
-  const url = new URL(
-    `${process.env.BEACH_API_END_POINT}/getUltraSrtFcstBeach`
-  );
+  const url = new URL(`${process.env.BEACH_API_END_POINT}/getTideInfoBeach`);
 
   const searchParams = new URLSearchParams();
 
