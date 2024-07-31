@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { ITideInfoBeach } from "@/api/api";
+
 import {
   select,
   line,
@@ -8,46 +10,38 @@ import {
   scaleLinear,
   extent,
   max,
-  scaleUtc,
+  timeParse,
 } from "d3";
 
-const splittedDate = ({ date, time }) => {
-  const splittedDate = date.split("-").map((d) => Number(d));
-  const splittedTime = time.split(":").map((d) => Number(d));
-  return new Date(
-    Date.UTC(
-      splittedDate[0],
-      splittedDate[1] - 1,
-      splittedDate[2],
-      splittedTime[0],
-      splittedTime[1],
-      0
-    )
-  );
-};
+const dateTimeParse = timeParse("%Y-%m-%d %H:%M");
+interface ILineChart {
+  data: ITideInfoBeach[];
+}
 
-export default function LineChart({ data }) {
+export default function LineChart({ data }: ILineChart) {
   const svgRef = useRef(null);
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    const x = scaleUtc(
-      extent(
-        data.map((d) => splittedDate({ date: d.baseDate, time: d.tiTime }))
-      ),
-      [0, 500]
-    );
-    const y = scaleLinear(
-      [0, max(data.map((d) => Number(d.tilevel)))],
-      [0, 500]
-    );
+    const domain = extent(
+      data.map((d) => {
+        return dateTimeParse(`${d.baseDate} ${d.tiTime}`) || new Date();
+      })
+    ) as Date[];
 
-    const myline = line()
+    const x = scaleTime().domain(domain).range([0, 500]);
+    const y = scaleLinear()
+      .domain([0, max(data.map((value) => Number(value.tilevel))) as number])
+      .range([0, 500]);
+
+    const myline = line<ITideInfoBeach>()
       .x((value) => {
-        return x(splittedDate({ date: value.baseDate, time: value.tiTime }));
+        return x(
+          dateTimeParse(`${value.baseDate} ${value.tiTime}`) || new Date()
+        );
       })
       .y((value) => {
-        return y(Number(value?.tilevel));
+        return y(Number(value.tilevel));
       });
 
     svg

@@ -3,7 +3,11 @@
 import { beaches } from "@/constants/beachname";
 import { useRouter } from "next/navigation";
 
-export default function SearchBeach({ beachNum }) {
+interface ISearchBeach {
+  beachNum: number;
+}
+
+export default function SearchBeach({ beachNum }: ISearchBeach) {
   const router = useRouter();
   return (
     <label>
@@ -13,7 +17,6 @@ export default function SearchBeach({ beachNum }) {
         onChange={(e) => {
           e.preventDefault();
           const num = e.target.value;
-
           router.push(`/?num=${num}`);
         }}
       >

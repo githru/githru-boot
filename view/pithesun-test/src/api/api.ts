@@ -6,26 +6,26 @@ interface IBeachRequestParam {
   base_time: string;
   beach_num: string;
 }
-
 interface IBeachrResponse {
-  numOfRows?: number;
-  pageNo?: number;
-  dataType?: string;
-  base_date: string;
-  base_time: string;
-  beach_num: string;
+  dataType: string;
+  items: { item: ITideInfoBeach[] };
+  pageNo: number;
+  numOfRows: number;
   totalCount: number;
-  resultCode: string;
-  resultMsg: string;
-  category: string;
-  fcstDate: string;
-  fcstTime: string;
-  fcstValue: string;
-  ny: number;
-  nx: number;
 }
 
-export async function getData(params: IBeachRequestParam) {
+export interface ITideInfoBeach {
+  beachNum: string;
+  baseDate: string;
+  tiStnld: string;
+  tiTime: string;
+  tiType: string;
+  tilevel: string;
+}
+
+export async function getData(
+  params: IBeachRequestParam
+): Promise<IBeachrResponse> {
   const url = new URL(`${process.env.BEACH_API_END_POINT}/getTideInfoBeach`);
 
   const searchParams = new URLSearchParams();
