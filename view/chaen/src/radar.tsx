@@ -41,7 +41,11 @@ const data = {
 };
 
 function RadarComponent() {
-  return <Radar data={data} />;
+  return (
+    <div className='chart'>
+      <Radar data={data} />
+    </div>
+  );
 }
 
 export default RadarComponent;
